@@ -262,12 +262,11 @@ header.scrolled .logo img {
 
 @media (max-width: 768px) {
   .maplink_button{
-    padding: 10px 25px; /* smaller padding */
-    font-size: 0.8rem;  /* smaller font size */
-    border-radius: 40px;
-    transform: translateY(-6rem);
+  padding: 10px 25px; /* smaller padding */
+  font-size: 0.8rem;  /* smaller font size */
   }
 }
+
 /* arrow */
 .arrow {
   position: absolute;
