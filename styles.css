@@ -264,6 +264,7 @@ header.scrolled .logo img {
   .maplink_button{
   padding: 10px 25px; /* smaller padding */
   font-size: 0.8rem;  /* smaller font size */
+  transform: translateY(-3rem);
   }
 }
 
