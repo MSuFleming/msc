@@ -1,0 +1,617 @@
+body {
+  margin: 0;
+  font-family: 'Manrope', sans-serif;
+  background: #111;
+  color: #f0f0f0;
+  line-height: 1.5;
+}
+
+/* header */
+header {
+  background-color: #000;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.logo img {
+  padding-top: 1rem;
+  padding-bottom: 0.7rem;
+  height: 74px;
+  width: auto;
+}
+
+header.scrolled .logo img {
+  height: 2.3rem;
+  padding: 0.7rem 0 0 0;
+}
+
+@media (max-width: 768px) {
+  header.scrolled .logo img  {
+        display: inline !important;
+        height: 1.8rem;
+        top: 50%;
+        bottom: 50%;
+        left: .8rem;
+        padding: 0 0;
+        position: absolute;
+        margin-top: auto;
+        margin-bottom: auto;
+  }
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+}
+
+.nav-links a {
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: #F8F8FF;
+  font-weight: 500;
+  position: relative;
+  padding: 0.5rem 0;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #4CAF50;
+         transform: translateY(-2px);
+}
+
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.menu-toggle span {
+  height: 3px;
+  background-color: #f0f0f0;
+  margin: 4px 0;
+  width: 25px;
+}
+
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background: rgba(0, 0, 0);
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100dvh;
+    padding: 6rem 0 0 2rem;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+  }
+
+  .nav-links.active {
+    display: flex;
+        transform: translateX(0);
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  .nav-links a {
+      margin: 1rem 0 1rem 1rem;
+      opacity: 0;
+      transform: translateX(50px);
+      transition: all 0.3s ease;
+      transition-delay: 0.1s;
+      padding: 15px 20px;
+      border-radius: 10px;
+      position: relative;
+      overflow: hidden;
+      border-left: 3px solid transparent;
+  }
+
+  .nav-links.active a {
+      opacity: 1;
+      transform: translateX(0);
+  }
+
+  .nav-links a:hover {
+      color: #f0f0f0;
+      background: #1e1e1e;
+      transform: translateX(10px);
+  }
+
+
+  /* add underline effect */
+  /* .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #f0f0f0, #4CAF50);
+      transition: width 0.2s ease;
+  }
+
+  .nav-links a:hover::after {
+      width: 100%;
+  } */
+}
+
+/* hero page */
+.hero {
+  height: calc(100vh - 6rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 0 2rem;
+  background:
+    linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.9) 0%,
+            rgba(0, 0, 0, 0.4) 45%,
+            rgba(0, 0, 0, 0.9) 100%
+    ),
+            url('images/hero_2.png');
+  /* background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+              url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'); */
+  background-size: cover;
+  background-position: center;
+  scroll-margin-top: 9rem;
+}
+
+.hero h1 {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.3rem;
+  max-width: 600px;
+}
+
+.hero a{
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .hero h1{
+    font-size: 2.5rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .hero p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  }
+
+  .hero a{
+  margin-top: 1rem;
+  }
+}
+
+
+/* hero page button */
+
+        .maplink_button {
+            display: inline-block;
+            padding: 18px 45px;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 15%, #e9ecef 30%, #dee2e6 45%, #ced4da 60%, #adb5bd 75%, #6c757d 90%, #495057 100%);
+            background-size: 300% 300%;
+            color: #111;
+            text-decoration: none;
+            border-radius: 60px;
+            font-weight:bold;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            transition: all 0.5s ease;
+            box-shadow: 
+                0 12px 35px rgba(255, 255, 255, 0.3),
+                0 6px 15px rgba(255, 255, 255, 0.2),
+                0 2px 8px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            position: relative;
+            overflow: hidden;
+            animation: gradientShift 2.5s ease-in-out infinite;
+        }
+
+        .maplink_button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent 70%);
+            transition: all 0.6s ease;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .maplink_button:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 
+                0 20px 50px rgba(255, 255, 255, 0.5),
+                0 10px 25px rgba(255, 255, 255, 0.3),
+                0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+
+  @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+/* arrow */
+.arrow {
+  position: absolute;
+  bottom: 2em;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.arrow span {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-bottom: 3px solid #f0f0f0;
+  border-right: 3px solid #f0f0f0;
+  transform: rotate(45deg);
+  animation: arrowAnimation 1.8s infinite;
+}
+
+@keyframes arrowAnimation {
+  0% {
+    opacity: 0;
+    transform: rotate(45deg) translate(-10px, -10px);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(45deg) translate(10px, 10px);
+  }
+}
+
+#aboutpage {
+  scroll-margin-top: 7rem;
+}
+
+/* hyper link colour */
+.otherwebpagelink {
+  color: #f0f0f0;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.4s ease;
+  font-style: italic;
+}
+
+.otherwebpagelink:hover {
+  color: #4CAF50;
+}
+
+
+/* university page link */
+.link-row {
+  display: flex;
+  flex-direction: column; /* vertical stacking for readability */
+  gap: 12px; /* space between links */
+  width: 100%;
+  padding: 10px 0;
+}
+
+.school_link {
+  background-color: #1e1e1e; /* dark background for contrast */
+  color: #f0f0f0;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.school_link:hover {
+  background-color: rgb(46, 125, 50, 0.5); /* darker green */
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.school_link i {
+  font-size: 18px;
+  color: #4caf50;
+  transition: transform 0.3s ease;
+}
+
+.school_link:hover i {
+  transform: translateX(5px);
+  color: #f0f0f0;
+}
+
+
+
+
+
+
+
+
+
+
+/* define all section */
+section {
+  padding: 5px 20px 10px 20px;
+  text-align: center;  
+  scroll-margin-top: 5vh;
+}
+
+#mappage {
+  display: flex;
+  flex-direction: column; /* Make children stack vertically */
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 666px;
+  background: #111;
+  scroll-margin-top: 7rem;
+  margin-bottom: 3rem; 
+}
+
+#map {
+  width: 66%;
+  height: 100%;
+  border-radius: 20px;
+  z-index: 1;
+  position: relative;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+  border: 1px solid rgba(105, 105, 105,0.2);
+}
+
+/* define all section 
+.map-fullscreen {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  height: 100vh !important;
+  width: 100vw !important;
+  z-index: 1;
+  border-radius: 0;
+}
+*/
+
+/*
+.fullscreen-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 1;
+}
+*/
+
+@media (max-width: 768px) {
+  #mappage {
+    height: 600px; 
+  }
+  
+  #map {
+    height: 100%; 
+    width: 100%;
+    border-radius: 10px; 
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* research methodology section css */
+#methodpage {
+  scroll-margin-top: 7rem;
+}
+
+.text_section {
+  padding: 0 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 2.5rem;
+  position: relative;
+}
+
+.section-title:after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: #4CAF50;
+  margin: 15px auto;
+}
+
+/* CONTENT BLOCKS */
+.content-block {
+  background: #1a1a1a;
+  border-radius: 15px;
+  padding: 30px;
+  margin-bottom: 3rem;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  transition: transform 0.3s;
+}
+
+.content-block:hover {
+  transform: translateY(-5px);
+}
+
+.content-block h3 {
+  color: #4CAF50;
+  margin-top: 0;
+  font-size: 1.8rem;
+}
+
+.content_paragraph p {
+  font-size: 1.1rem;
+  color: #f0f0f0;
+  text-align: left;
+}
+
+.content-block li {
+  color: #f0f0f0;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .content-block {
+    margin-bottom: 0rem;
+  }
+}
+
+/* IMAGE STYLES */
+.image-container {
+  margin: 30px 0;
+  text-align: center;
+}
+
+.image-container img {
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+  border: 1px solid #333;
+}
+
+
+.image-caption {
+  margin-top: 10px;
+  font-style: italic;
+  font-size: 1rem;
+}
+
+/* CONTENT GRID */
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 40px; 
+}
+
+
+/* METHODOLOGY STEPS */
+.text-steps {
+  margin-top: 30px;
+}
+
+.text-step {
+  position: relative;
+  padding-left: 70px;
+  margin-bottom: 40px;
+  min-height: 50px;
+}
+
+.step-number {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: #4CAF50;
+  color: #f0f0f0;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.step-content {
+  display: block; 
+  width: 100%; 
+}
+
+.text-step h4 {
+  margin-top: 0;
+  font-size: 1.4rem;
+  color: #f0f0f0;
+}
+
+.text-step p {
+  margin-bottom: 0;
+}
+
+/* css for img placed outside of a content block, add some visual effect and responsive design, source: w3schools */
+.standalone_img{
+  max-width: 50%;
+  margin: 30px 0;
+  text-align: center;
+}
+
+.standalone_img_container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.standalone_img {
+  background: #111;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.8);
+  transition: transform 0.2s;
+  max-width: 400px;
+  width: 100%;
+  flex: 1 1 300px;
+}
+
+.standalone_img:hover {
+  transform: scale(1.07);
+}
+
+.standalone_img img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+
+
+
+
+
