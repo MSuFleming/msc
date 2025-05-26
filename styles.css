@@ -191,13 +191,15 @@ header.scrolled .logo img {
 
 @media (max-width: 768px) {
   .hero h1{
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     margin-bottom: 0.2rem;
+    transform: translateY(-4rem);
   }
 
   .hero p {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   max-width: 600px;
+  transform: translateY(-4rem);
   }
 
   .hero a{
@@ -208,55 +210,64 @@ header.scrolled .logo img {
 
 /* hero page button */
 
-        .maplink_button {
-            display: inline-block;
-            padding: 18px 45px;
-            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 15%, #e9ecef 30%, #dee2e6 45%, #ced4da 60%, #adb5bd 75%, #6c757d 90%, #495057 100%);
-            background-size: 300% 300%;
-            color: #111;
-            text-decoration: none;
-            border-radius: 60px;
-            font-weight:bold;
-            letter-spacing: 1.2px;
-            text-transform: uppercase;
-            transition: all 0.5s ease;
-            box-shadow: 
-                0 12px 35px rgba(255, 255, 255, 0.3),
-                0 6px 15px rgba(255, 255, 255, 0.2),
-                0 2px 8px rgba(0, 0, 0, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.8);
-            position: relative;
-            overflow: hidden;
-            animation: gradientShift 2.5s ease-in-out infinite;
-        }
+.maplink_button {
+    display: inline-block;
+    padding: 18px 45px;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 15%, #e9ecef 30%, #dee2e6 45%, #ced4da 60%, #adb5bd 75%, #6c757d 90%, #495057 100%);
+    background-size: 300% 300%;
+    color: #111;
+    text-decoration: none;
+    border-radius: 60px;
+    font-weight:bold;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    transition: all 0.5s ease;
+    box-shadow: 
+        0 12px 35px rgba(255, 255, 255, 0.3),
+        0 6px 15px rgba(255, 255, 255, 0.2),
+        0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    position: relative;
+    overflow: hidden;
+    animation: gradientShift 2.5s ease-in-out infinite;
+}
 
-        .maplink_button::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent 70%);
-            transition: all 0.6s ease;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-        }
+.maplink_button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent 70%);
+    transition: all 0.6s ease;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
 
-        .maplink_button:hover {
-            transform: translateY(-8px) scale(1.05);
-            box-shadow: 
-                0 20px 50px rgba(255, 255, 255, 0.5),
-                0 10px 25px rgba(255, 255, 255, 0.3),
-                0 4px 12px rgba(0, 0, 0, 0.15);
-        }
+.maplink_button:hover {
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 
+        0 20px 50px rgba(255, 255, 255, 0.5),
+        0 10px 25px rgba(255, 255, 255, 0.3),
+        0 4px 12px rgba(0, 0, 0, 0.15);
+}
 
 
-  @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
 
+
+@media (max-width: 768px) {
+  .maplink_button{
+    padding: 10px 25px; /* smaller padding */
+    font-size: 0.8rem;  /* smaller font size */
+    border-radius: 40px;
+    transform: translateY(-4rem);
+  }
+}
 /* arrow */
 .arrow {
   position: absolute;
@@ -609,6 +620,12 @@ section {
   height: auto;
   display: block;
 }
+
+
+
+
+
+
 
 
 
