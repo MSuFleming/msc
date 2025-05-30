@@ -1,4 +1,4 @@
-#msc project preliminary website
+# msc project preliminary website
 quick link: https://msufleming.github.io/test/index_v2.html
 
 ## planned schedule
