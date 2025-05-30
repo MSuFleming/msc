@@ -14,7 +14,6 @@
 
   <link rel="icon" type="image/x-icon" href="images/favicon.ico">
 </head>
-<!-- <body onload="window.scrollTo(0,0)"> -->
 <body>
   
 <header id="header">
@@ -42,7 +41,6 @@
     </div>
 
 
-
     <section id="aboutpage">    
         <div class="text_section">
             <h2 class="section-title">About The Site</h2>
@@ -52,14 +50,14 @@
                     <p>This webpage is part of the deliverables for the 2024/2025 MSc Project at the College of Science & Engineering, University of Glasgow.</p>
                     <p>This is an application-oriented MSc project under Theme P: "Bringing the field to your desktop: Accessibility-focused spatial analysis and visualisation of GES field course locations and activities." The study area and research focus have been slightly modified based on personal interest, with changes approved after discussion with supervisors. The webpage and its web map component were developed with the assistance of <a href="https://www.w3schools.com/howto/howto_js_navbar_shrink_scroll.asp" class="otherwebpagelink" target="_blank">W3Schools</a> and <a href="https://docs.mapbox.com/mapbox-gl-js/example/" class="otherwebpagelink" target="_blank">Mapbox tutorial examples</a>. The code has been modified where necessary.</p>
                     <div class="link-row">
-                        <a href="https://www.gla.ac.uk/coursecatalogue/course/?code=GEOG5131P" class="school_link" target="_blank">
+                        <a href="https://www.gla.ac.uk/coursecatalogue/course/?code=GEOG5131P" class="school_link" target="_blank"><!-- open in new page -->
                             <i class="fa-solid fa-caret-right"></i> About MSc Project
-                        </a>
-                        <a href="https://www.gla.ac.uk/postgraduate/taught/geospatialandmappingsciences/" class="school_link" target="_blank">
-                            <i class="fa-solid fa-caret-right"></i> About the GIS Program
                         </a>
                         <a href="https://www.gla.ac.uk/" class="school_link" target="_blank">
                             <i class="fa-solid fa-caret-right"></i> About University of Glasgow
+                        </a>
+                        <a href="https://www.gla.ac.uk/postgraduate/taught/geospatialandmappingsciences/" class="school_link" target="_blank">
+                            <i class="fa-solid fa-caret-right"></i> About My Program
                         </a>
                     </div> 
                 </div>
@@ -67,37 +65,29 @@
                     <img src="https://cfmnsugzia.cloudimg.io/www.gla.ac.uk/media/Media_1141038_smxx.webp?width=1400&force_format=webp" alt="uofg">
                     <p class="image-caption">Figure 1: University of Glasgow</p>
                 </div>
+
+                <h3>Research Context</h3>
+                <div class="content_paragraph">
+                    <p>This webpage is part of the deliverables for the 2024/2025 MSc Project at the College of Science & Engineering, University of Glasgow.</p>
+                    <p>This webpage is part of the deliverables for the 2024/2025 MSc Project at the College of Science & Engineering, University of Glasgow.</p>
+                </div>
+                <div class="image-container">
+                  <img src="https://cfmnsugzia.cloudimg.io/www.gla.ac.uk/media/Media_1141038_smxx.webp?width=1400&force_format=webp" alt="undecided">
+                  <p class="image-caption">Figure 2: undecided</p>
+                </div>
+
             </div>
         </div>
 </section>
+
   
-
-
 <section id="mappage">
   <h2 class="section-title">Interactive Accessability Map</h2>
   <div id="map"></div>
 </section>
 
 
-
-
 <section id="methodpage">
-  <div class="text_section">
-    <h2 class="section-title">Research Question</h2>
-    <div class="content-block">
-      <h3>Research Context</h3>
-        <div class="content_paragraph">
-          <p>This webpage is part of the deliverables for the 2024/2025 MSc Project at the College of Science & Engineering, University of Glasgow.</p>
-          <p>This webpage is part of the deliverables for the 2024/2025 MSc Project at the College of Science & Engineering, University of Glasgow.</p>
-      </div>
-      <div class="image-container">
-        <img src="https://cfmnsugzia.cloudimg.io/www.gla.ac.uk/media/Media_1141038_smxx.webp?width=1400&force_format=webp" alt="undecided">
-        <p class="image-caption">Figure 2: undecided</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <div class="text_section">
   <h2 class="section-title">Research Methodology</h2>
   
@@ -132,7 +122,6 @@
       <div class="step-number">1</div>
       <div class="step-content">
         <h4>Data Preprocessing</h4>
-        <!-- <p>Created 10-minute walking isochrones from all green space entrances using pedestrian network analysis. Adjusted for real-world barriers like rivers and highways.</p> -->
         <p>
           this webpage is part of the deliverables for the 2024/2025 MSc Project at the College of Science & Engineering, University of Glasgow.
         </p>
@@ -147,6 +136,22 @@
         <p>
           this webpage is part of the deliverables for the 2024/2025 MSc Project at the College of Science & Engineering, University of Glasgow.
         </p>
+        <div class="image-container">
+          <div class="image_row">
+            <div class="image_wrapper">
+                <img src="images\demand_ratio.png" alt="formula 1" class="step_image">
+              <div class= "image_container_caption"><p>Figure 3: Calculating Supply to Demand Ratio</p>
+              </div>
+            </div>
+
+            <div class="image_wrapper">
+                <img src="images\acc_level.png" alt="formula 2" class="step_image">       
+              <div class= "image_container_caption"><p>Figure 4: Calculating Accessibility Level at Each Demand Location</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
     
@@ -158,11 +163,7 @@
         <p>
           this webpage is part of the deliverables for the 2024/2025 MSc Project at the College of Science & Engineering, University of Glasgow.
         </p>
-        
-        <div class="standalone_img">
-          <img src="/images/glasgow_logo.svg" alt="GIS analysis screenshot">
-          <p class="standalong_img_caption">Figure 1: Example of urban green space integration in modern city planning</p>
-        </div>
+
       </div>
     </div>
 
@@ -183,21 +184,62 @@
 
   </div>
 </div>
+</section>
 
 
+<footer class="footer">
+  <div class="container">
+      <div class="footer_content">
+        
+          <div class="footer_section">
+              <h3><i class="fa-solid fa-circle-info" style="color: #B197FC;"></i>Acknowledgment</h3>
+              <ul>
+                  <p>I would like to thank everyone who supported me throughout the school year, especially my supervisors, professors, teaching assistants, and all my wonderful classmates who offered guidance on this project.
+                  </p>
+              </ul>
+          </div>
 
+          <div class="footer_section">
+              <h3> <i class="fa-solid fa-circle-user" style="color: #81C784;"></i> Author</h3>
+              <ul>
+                  <li>
+                    <a href="https://www.linkedin.com/in/mingxuan-s-080927245/" target="_blank" class="inline_icon">About Me
+                    <i class="fa-brands fa-linkedin fa-lg" ></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/MSuFleming" target="_blank" class="inline_icon">Project Code
+                    <i class="fa-brands fa-github fa-lg"></i>
+                    </a>
+                  </li>
+                  <li><a href="" target="_blank">Previous Works</a></li>
+              </ul>
+          </div>
 
+          <div class="footer_section">
+              <h3> <i class="fa-solid fa-map-location-dot" style="color: #74C0FC;"></i> Revelant Programs</h3>
+              <ul>
+                  <li><a href=https://www.gla.ac.uk/postgraduate/taught/landhydrographicsurveying/ target="_blank">Land & Hydrographic Surveying</a></li>
+                  <li><a href="https://www.gla.ac.uk/postgraduate/taught/geomaticsmanagement/" target="_blank">Geomatics & Management</a></li>
+                  <li><a href="https://www.gla.ac.uk/postgraduate/taught/computational-geoscience/#tab=why" target="_blank">Computational Geoscience</a></li>
+              </ul>
+          </div>
 
-
-
-
-
-
-
-
-
-
-
+          <div class="footer_section">
+              <h3><i class="fa-solid fa-graduation-cap" style="color: 		#ffcc66;"></i>Resources</h3>
+              <ul>
+                  <li><a href="https://www.esri.com/en-us/arcgis/products/arcgis-network-analyst/overview">ESRI Products</a></li>
+                  <li><a href="https://qgis.org/">QGIS</a></li>
+                  <li><a href="https://www.mapbox.com/mts">Mapbox Tiling Service</a></li>
+              </ul>
+          </div>
+          
+      </div>
+      <div class="footer_bottom">
+          <p>University of Glasgow | Glasgow, G12 8QQ, Scotland, UK</p>
+      </div>
+  </div>
+</footer>
 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -205,73 +247,6 @@
   <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.3/mapbox-gl-geocoder.min.js"></script>
   <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.3/mapbox-gl-geocoder.css" type="text/css">
 
-  <script>
-    // menu button
-    gsap.from("#title", { y: -100, opacity: 0, duration: 1 });
-    gsap.from("#subtitle", { y: 50, opacity: 0, duration: 1, delay: 0.8 });
-    function toggleMenu() {
-      document.getElementById('navLinks').classList.toggle('active');
-    }
-
-    // close menu when a link is clicked
-    function closeMenu() {
-      document.getElementById('navLinks').classList.remove('active');
-    }
-    
-    // adjust scroll time 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
-        });
-      });
-    });
-
-
-
-
-const header = document.getElementById('header');
-const logoImg = document.getElementById('logo-img');
-
-const defaultLogo = 'images/glasgow_logo.svg';
-const scrolledLogo = 'images/ug-keyline.svg'; // Create alternate version
-
-window.addEventListener('scroll', function() {
-    if (window.scrollY > 10) {
-        header.classList.add('scrolled');
-        logoImg.src = scrolledLogo;
-    } else {
-        header.classList.remove('scrolled');
-        logoImg.src = defaultLogo;
-    }
-});
-
-
-	// TO MAKE THE MAP APPEAR YOU MUST
-	// ADD YOUR ACCESS TOKEN FROM
-	// https://account.mapbox.com
-	mapboxgl.accessToken = 'TOKEN';
-    const map = new mapboxgl.Map({
-        container: 'map', // container ID
-        // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
-        style: 'mapbox://styles/mapbox/light-v11', // style URL
-        center: [-79.3916664997379,43.66399514494464], // starting position
-        zoom: 12 // starting zoom
-    });
-
-// 1. Add FullscreenControl (required for proper browser handling)
-map.addControl(new mapboxgl.FullscreenControl());
-
-// for geocoder
- map.addControl(
-  new MapboxGeocoder({
-            accessToken: mapboxgl.accessToken,
-            mapboxgl: mapboxgl
-        }),
-        'top-left'
-    );
-
-</script>
+<script src="main.js"></script>
 </body>
 </html>
