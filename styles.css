@@ -170,7 +170,7 @@ header.scrolled .logo img {
               url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'); */
   background-size: cover;
   background-position: center;
-  scroll-margin-top: 10rem;
+  scroll-margin-top: 9rem;
 }
 
 .hero h1 {
@@ -292,7 +292,8 @@ header.scrolled .logo img {
 }
 
 #aboutpage {
-  scroll-margin-top: 5.5rem;
+  margin-top: 3rem;
+  scroll-margin-top: 7rem;
 }
 
 /* hyper link colour */
@@ -359,7 +360,7 @@ color: #81C784;
 /* define all section */
 section {
   padding: 5px 0 10px 0;
-  scroll-margin-top: 5vh;
+
 }
 
 #mappage {
@@ -372,7 +373,7 @@ section {
   position: relative;
   height: 666px;
   background: #111;
-  scroll-margin-top: 5rem;
+  scroll-margin-top: 7rem;
   margin-bottom: 3rem; 
 }
 
@@ -432,7 +433,7 @@ section {
 
 /* research methodology section css */
 #methodpage {
-  scroll-margin-top: 5rem;
+  scroll-margin-top: 7rem;
 }
 
 .text_section {
