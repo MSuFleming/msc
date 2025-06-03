@@ -92,16 +92,270 @@ const allPlaces = {
         {
             'type': 'Feature',
             'properties': {
-                'icon': 'bar',
-                'title': 'Local Brewery',
-                'description': 'Craft beer and casual dining with outdoor seating.',
-                'color': '#f39c12'
+                'icon': 'clinic',
+                'title': 'Baillieston Health Centre',
+                'description': '20 Muirside Road Glasgow, G69 7AD',
             },
             'geometry': {
                 'type': 'Point',
-                'coordinates': [-77.090372, 38.881189]
+                'coordinates': [-4.1161653981145605,55.849487588781244]
+            }
+        },        
+        {
+            'type': 'Feature',
+            'properties': {
+                'icon': 'clinic',
+                'title': 'Bridgeton Health Centre',
+                'description': '201 Abercromby Street Glasgow, G40 2DA',
+            },
+            'geometry': {
+                'type': 'Point',
+                'coordinates': [-4.2278003615973603,55.852648320863352]
             }
         },
+                {
+            'type': 'Feature',
+            'properties': {
+                'icon': 'clinic',
+                'title': 'Castlemilk Health Centre',
+                'description': '71 Dougrie Dr, Glasgow G45 9AW',
+            },
+            'geometry': {
+                'type': 'Point',
+                'coordinates': [-4.2349393130987778,55.805745704800472]
+            }
+        },
+        {
+            'type': 'Feature',
+            'properties': {
+                'icon': 'clinic',
+                'title': 'Govan Health Centre',
+                'description': '5 Drumoyne Road Glasgow, G51 4BJ',
+            },
+            'geometry': {
+                'type': 'Point',
+                'coordinates': [-4.3264733829402076,55.860305482412116]
+            }
+        },
+        {
+            'type': 'Feature',
+            'properties': {
+                'icon': 'clinic',
+                'title': 'Govanhill Health Centre',
+                'description': '233 Calder St, Glasgow G42 7DR',
+            },
+            'geometry': {
+                'type': 'Point',
+                'coordinates': [-4.258361870703709,55.83730541461324]
+            }
+        },
+        {
+            'type': 'Feature',
+            'properties': {
+                'icon': 'clinic',
+                'title': 'Maryhill Health and Care Centre',
+                'description': '51 Gairbraid Avenue Maryhill Glasgow G20 8FB',
+            },
+            'geometry': {
+                'type': 'Point',
+                'coordinates': [-4.2928819004793013,55.890035506233687]
+            }
+        },
+        {
+            'type': 'Feature',
+            'properties': {
+                'icon': 'clinic',
+                'title': 'New Gorbals Health and Care Centre',
+                'description': '2 Sandiefield Road Glasgow G5 9AB',
+            },
+            'geometry': {
+                'type': 'Point',
+                'coordinates': [-4.2529930098194768,55.848399491843111]
+            }
+        },
+        {
+            'type': 'Feature',
+            'properties': {
+                'icon': 'clinic',
+                'title': 'Parkhead Health Centre',
+                'description': '1251 Duke St, Parkhead, Glasgow, G31 5NZ',
+            },
+            'geometry': {
+                'type': 'Point',
+                'coordinates': [-4.1934693216518326,55.85224133177212]
+            }
+        },
+        {
+            'type': 'Feature',
+            'properties': {
+                'icon': 'clinic',
+                'title': 'Pollok Health Centre',
+                'description': '21 Cowglen Road Glasgow, G53 6EQ',
+            },
+            'geometry': {
+                'type': 'Point',
+                'coordinates': [-4.3462211640754163,55.822249109708707]
+            }
+        },
+        {
+            'type': 'Feature',
+            'properties': {
+                'icon': 'clinic',
+                'title': 'Possilpark Health and Care Centre',
+                'description': '99 Saracen Street, Glasgow, G22 5AP',
+            },
+            'geometry': {
+                'type': 'Point',
+                'coordinates': [-4.254685568084426,55.881177092348992]
+            }
+        },
+        {
+            'type': 'Feature',
+            'properties': {
+                'icon': 'clinic',
+                'title': 'Shettleston Health Centre',
+                'description': '420 Old Shettleston Road Glasgow, G32 7JZ',
+            },
+            'geometry': {
+                'type': 'Point',
+                'coordinates': [-4.1698317370450013,55.852737587569663]
+            }
+        },
+        {
+            'type': 'Feature',
+            'properties': {
+                'icon': 'clinic',
+                'title': 'Possilpark Health and Care Centre',
+                'description': '99 Saracen Street, Glasgow, G22 5AP',
+            },
+            'geometry': {
+                'type': 'Point',
+                'coordinates': [-4.254685568084426,55.881177092348992]
+            }
+        },
+        {
+            'type': 'Feature',
+            'properties': {
+                'icon': 'clinic',
+                'title': 'Shields Health and Care Centre',
+                'description': '80 McCulloch Street, Glasgow, G41 1NX',
+            },
+            'geometry': {
+                'type': 'Point',
+                'coordinates': [-4.2709318757054575,55.844939484269844]
+            }
+        },
+        {
+            'type': 'Feature',
+            'properties': {
+                'icon': 'clinic',
+                'title': 'Springburn Health Centre',
+                'description': '200 Springburn Way Glasgow, G21 1TR',
+            },
+            'geometry': {
+                'type': 'Point',
+                'coordinates': [-4.2286562382947182,55.882682398274142]
+            }
+        },
+        {
+            'type': 'Feature',
+            'properties': {
+                'icon': 'clinic',
+                'title': 'Townhead Health Centre',
+                'description': '16 Alexandra Parade, Glasgow G31 2ES',
+            },
+            'geometry': {
+                'type': 'Point',
+                'coordinates': [-4.2342350009444658,55.866257756890036]
+            }
+        },
+        {
+            'type': 'Feature',
+            'properties': {
+                'icon': 'clinic',
+                'title': 'Woodside Health and Care Centre',
+                'description': '891 Garscube Rd, Glasgow G20 7ET',
+            },
+            'geometry': {
+                'type': 'Point',
+                'coordinates': [-4.2709489951999444,55.87970153060121]
+            }
+        },
+        {
+            'type': 'Feature',
+            'properties': {
+                'icon': 'clinic',
+                'title': 'Pollokshaws Clinic',
+                'description': '35 Well Grn, Shawlands, Glasgow G43 1RR',
+            },
+            'geometry': {
+                'type': 'Point',
+                'coordinates': [-4.2960784606523816,55.826179529261935]
+            }
+        },
+        {
+            'type': 'Feature',
+            'properties': {
+                'icon': 'clinic',
+                'title': 'Netherton LD Assessment Centre',
+                'description': '19 Blackwood Street, Anniesland Glasgow, G13 1AL',
+            },
+            'geometry': {
+                'type': 'Point',
+                'coordinates': [-4.3313438890092471,55.894387164635987]
+            }
+        },
+        {
+            'type': 'Feature',
+            'properties': {
+                'icon': 'clinic',
+                'title': 'Sandy Road Clinic',
+                'description': '547 Dumbarton Rd, Glasgow G11 6HU',
+            },
+            'geometry': {
+                'type': 'Point',
+                'coordinates': [-4.3150962126200625,55.870535703260146]
+            }
+        },
+        {
+            'type': 'Feature',
+            'properties': {
+                'icon': 'clinic',
+                'title': 'Glenkirk Resource Centre',
+                'description': '129 Drumchapel Road Glasgow, G15 6PX',
+            },
+            'geometry': {
+                'type': 'Point',
+                'coordinates': [-4.3585084986682432,55.905805273894316]
+            }
+        },
+        {
+            'type': 'Feature',
+            'properties': {
+                'icon': 'clinic',
+                'title': 'Fernbank St Clinic',
+                'description': '194 Fernbank Street Glasgow G22 6BD',
+            },
+            'geometry': {
+                'type': 'Point',
+                'coordinates': [-4.2340758659084372,55.886764255565993]
+            }
+        },
+
+        // ------------------- below is -----------------
+
+
+
+
+
+
+
+
+
+
+
+
+
         {
             'type': 'Feature',
             'properties': {
@@ -146,7 +400,7 @@ const allPlaces = {
   
   
   // Map initialization
-  mapboxgl.accessToken = 'mytoken'; 
+  mapboxgl.accessToken = 'token'; 
   const map = new mapboxgl.Map({
       container: 'map', // container ID
       style: 'mapbox://styles/mapbox/light-v11', // style URL
@@ -171,10 +425,10 @@ const allPlaces = {
       // Layer configuration
       const layerConfig = {
           'hospital': { name: 'Hospitals', iconUrl: 'images/hospital.png', type: 'symbol' },
-          'bar': { name: 'Bars', iconUrl: 'images/hospital.png', type: 'symbol' },
-          'bicycle': { name: 'Bike Spots', iconUrl: 'images/hospital.png', type: 'circle', color: '#3b82f6' },
+          'clinic': { name: 'Clinics', type: 'circle', color: '#F88379'},
+          'bicycle': { name: 'Bike Spots', type: 'circle', color: '#3b82f6' },
           'music': { name: 'Music Venues', iconUrl: 'images/hospital.png', type: 'symbol' },
-          'monument': { name: 'Monuments', iconUrl: 'images/hospital.png', type: 'circle', color: '#6366f1' }
+          'monument': { name: 'Monuments', type: 'circle', color: '#6366f1' }
       };
       
       
@@ -183,7 +437,7 @@ const allPlaces = {
               // TO USE YOUR OWN IMAGES: Replace these URLs with your local image paths
               const imageUrls = {
           'hospital': 'images/hospital.png',
-          'bar': 'images/hospital2.png',
+          'clinic': 'images/hospital2.png',
           'music': './images/music-icon.png'
       };
       
@@ -242,7 +496,7 @@ const allPlaces = {
                   'source': 'places',
                   'filter': ['==', 'icon', iconType],
                   'paint': {
-                      'circle-radius': 6,
+                      'circle-radius': 5,
                       'circle-color': config.color || '#FF0000',
                       'circle-opacity': 0.8
                   }
@@ -323,74 +577,87 @@ const allPlaces = {
                       this._container.appendChild(title);
       
                       // Create toggle buttons for each layer
-                      Object.keys(layerConfig).forEach(iconType => {
-                          const button = document.createElement('button');
-                          button.className = 'layer-toggle-btn';
+                    Object.keys(layerConfig).forEach(iconType => {
+                    const button = document.createElement('button');
+                    button.className = 'layer-toggle-btn';
 
-                        //   add img to toggle layer
-                          const iconImg = document.createElement('img');
-                            iconImg.src = layerConfig[iconType].iconUrl;
-                            iconImg.style.width = '17px';
-                            iconImg.style.height = '17px';
-                            iconImg.style.flexShrink = '0'; // ensures it doesn't shrink
+                    button.innerHTML = ''; // Clear default
 
-                            button.innerHTML = ''; // clear default
-                            button.appendChild(iconImg);
-                            button.appendChild(document.createTextNode(layerConfig[iconType].name));
+                    // Decide what to use: icon image OR color dot
+                    if (layerConfig[iconType].type === 'symbol' && layerConfig[iconType].iconUrl) {
+                        const iconImg = document.createElement('img');
+                        iconImg.src = layerConfig[iconType].iconUrl;
+                        iconImg.style.width = '17px';
+                        iconImg.style.height = '17px';
+                        iconImg.style.flexShrink = '0';
 
-                            button.style.display = 'flex';
-                            button.style.alignItems = 'center';        // vertically center img + text
-                            button.style.justifyContent = 'flex-start';// keep items aligned left
-                            button.style.gap = '10px';                 // spacing between image and text
-                            
-                            button.style.width = '100%';
-                            button.style.padding = '8px 12px';
-                            button.style.margin = '2px 0';
-                            button.style.border = '1px solid #ccc';
-                            button.style.borderRadius = '5px';
-                            button.style.background = '#f8f9fa';
-                            button.style.cursor = 'pointer';
-                            button.style.fontSize = '13px';
-                            button.style.textAlign = 'left';
-                            button.style.transition = 'all 0.2s';
-                            
-      
-                          // Track toggle state
-                          button.isActive = true;
-      
-                          button.addEventListener('click', () => {
-                              const markerLayer = `${iconType}-markers`;
-                              
-                              if (button.isActive) {
-                                  // Hide layer
-                                  map.setLayoutProperty(markerLayer, 'visibility', 'none');
-                                  button.style.background = '#e9ecef';
-                                  button.style.opacity = '0.35';
-                                  button.isActive = false;
-                              } else {
-                                  // Show layer
-                                  map.setLayoutProperty(markerLayer, 'visibility', 'visible');
-                                  button.style.background = '#f8f9fa';
-                                  button.style.opacity = '1';
-                                  button.isActive = true;
-                              }
-                          });
-      
-                          // Hover effects
-                          button.addEventListener('mouseenter', () => {
-                              if (button.isActive) {
-                                  button.style.background = '#50c8784d';
-                              }
-                          });
-      
-                          button.addEventListener('mouseleave', () => {
-                              if (button.isActive) {
-                                  button.style.background = '#f8f9fa';
-                              }
-                          });
-      
-                          this._container.appendChild(button);
-                      });
+                        button.appendChild(iconImg);
+                    } else if (layerConfig[iconType].type === 'circle') {
+                        const colorDot = document.createElement('span');
+                        colorDot.style.display = 'inline-block';
+                        colorDot.style.width = '12px';
+                        colorDot.style.height = '12px';
+                        colorDot.style.borderRadius = '50%';
+                        colorDot.style.backgroundColor = layerConfig[iconType].color || '#999';
+                        colorDot.style.flexShrink = '0';
+
+                        button.appendChild(colorDot);
+                    }
+
+                    // Add the name after icon or color dot
+                    button.appendChild(document.createTextNode(layerConfig[iconType].name));
+
+                    // ✅ Layout styling
+                    button.style.display = 'flex';
+                    button.style.alignItems = 'center';
+                    button.style.justifyContent = 'flex-start';
+                    button.style.gap = '10px';
+
+                    button.style.width = '100%';
+                    button.style.padding = '8px 12px';
+                    button.style.margin = '2px 0';
+                    button.style.border = '1px solid #ccc';
+                    button.style.borderRadius = '5px';
+                    button.style.background = '#f8f9fa';
+                    button.style.cursor = 'pointer';
+                    button.style.fontSize = '13px';
+                    button.style.textAlign = 'left';
+                    button.style.transition = 'all 0.2s';
+
+                    // Track toggle state
+                    button.isActive = true;
+
+                    button.addEventListener('click', () => {
+                        const markerLayer = `${iconType}-markers`;
+
+                        if (button.isActive) {
+                        map.setLayoutProperty(markerLayer, 'visibility', 'none');
+                        button.style.background = '#e9ecef';
+                        button.style.opacity = '0.35';
+                        button.isActive = false;
+                        } else {
+                        map.setLayoutProperty(markerLayer, 'visibility', 'visible');
+                        button.style.background = '#f8f9fa';
+                        button.style.opacity = '1';
+                        button.isActive = true;
+                        }
+                    });
+
+                    // Hover effects
+                    button.addEventListener('mouseenter', () => {
+                        if (button.isActive) {
+                        button.style.background = '#50c8784d';
+                        }
+                    });
+
+                    button.addEventListener('mouseleave', () => {
+                        if (button.isActive) {
+                        button.style.background = '#f8f9fa';
+                        }
+                    });
+
+                    this._container.appendChild(button);
+                    });
       
                       return this._container;
                   }
