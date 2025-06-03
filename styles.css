@@ -886,3 +886,30 @@ radial-gradient(circle at 40% 40%, rgba(120, 200, 255, 0.1) 0%, transparent 50%)
   padding-top: 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
+
+
+
+
+
+/* mapbox section */
+/* Control panel styling */
+
+.mapboxgl-popup-content {
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  max-width: 250px;
+}
+
+.popup-title {
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #333;
+  font-size: 16px;
+}
+
+.popup-description {
+  color: #666;
+  font-size: 14px;
+  line-height: 1.4;
+}
