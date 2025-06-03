@@ -37,24 +37,3 @@ window.addEventListener('scroll', function() {
         logoImg.src = defaultLogo;
     }
 });
-
-// Map initialization
-mapboxgl.accessToken = 'TOKEN'; 
-const map = new mapboxgl.Map({
-    container: 'map', // container ID
-    style: 'mapbox://styles/mapbox/light-v11', // style URL
-    center: [-79.3916664997379, 43.66399514494464], // starting position
-    zoom: 12 // starting zoom
-});
-
-// Add FullscreenControl
-map.addControl(new mapboxgl.FullscreenControl());
-
-// Add geocoder
-map.addControl(
-    new MapboxGeocoder({
-        accessToken: mapboxgl.accessToken,
-        mapboxgl: mapboxgl
-    }),
-    'top-left'
-);
