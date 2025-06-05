@@ -11,7 +11,7 @@ quick link: https://msufleming.github.io/test/index_v2.html
 |       July 7    |     2SFCA  calculation part 2      |                  |
 |     July 14  |    dispay any remaining layers &apply style      |                  |
 | July 21| report |  |
-| Aug 4| report draft |formative feedback due at aug 8|
+| Aug 4| report draft completed|formative feedback due at aug 8|
 
 ## data sourcrs
 | layer name |  sources  |   url   |
