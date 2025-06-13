@@ -1,4 +1,4 @@
-
+// map colour template https://colorbrewer2.org/#type=diverging&scheme=RdGy&n=6
 const allPlaces = {
     // ----------------below is hospital------------
     'type': 'FeatureCollection',
@@ -341,21 +341,7 @@ const allPlaces = {
                 'coordinates': [-4.2340758659084372,55.886764255565993]
             }
         },
-
-        // ------------------- below is -----------------
-
-
-
-
-
-
-
-
-
-
-
-
-
+        // ------------------- below is ---------------
         {
             'type': 'Feature',
             'properties': {
@@ -369,48 +355,22 @@ const allPlaces = {
                 'coordinates': [-77.052477, 38.943951]
             }
         },
-        {
-            'type': 'Feature',
-            'properties': {
-                'icon': 'music',
-                'title': '9:30 Club',
-                'description': 'Iconic music venue hosting concerts and live performances.',
-                'color': '#000000'
-            },
-            'geometry': {
-                'type': 'Point',
-                'coordinates': [-77.007481, 38.876516]
-            }
-        },
-        {
-            'type': 'Feature',
-            'properties': {
-                'icon': 'monument',
-                'title': 'Washington Monument',
-                'description': 'Construction on the Washington Monument began in 1848.',
-                'color': '#34495e'
-            },
-            'geometry': {
-                'type': 'Point',
-                'coordinates': [-77.0353, 38.8895]
-            }
-        }
     ]
   };
   
   
   // Map initialization
-  mapboxgl.accessToken = 'token'; 
+  mapboxgl.accessToken = 'pk.eyJ1IjoienlwaGVyMTEwNCIsImEiOiJjbWF5OWg0bGUwNjFzMmxxemo4enM0NWIzIn0.OSmBViJ_-9Hu8EBdqkE6xA'; 
   const map = new mapboxgl.Map({
       container: 'map', // container ID
       style: 'mapbox://styles/mapbox/light-v11', // style URL
-      center: [-77.020945, 38.878241], // starting position
+      center: [-4.277578834832815,55.856466907382745,], // starting position
       zoom: 10// starting zoom
   });
   
   // Add FullscreenControl
   map.addControl(new mapboxgl.FullscreenControl());
-  
+
   // Add geocoder
   map.addControl(
       new MapboxGeocoder({
@@ -420,254 +380,496 @@ const allPlaces = {
       'top-left'
   );
   
+  // Layer configuration - including polygons
+  const layerConfig = {
+    'hospital': { name: 'Hospitals', iconUrl: 'images/hospital.png', type: 'symbol' },
+    'clinic': { name: 'Clinics', type: 'circle', color: '#f76659'},
+    'bicycle': { name: 'Bike Spots', type: 'circle', color: '#3b82f6' },
+    // Add polygon layer configuration
+    'Drive_Acc': { 
+        name: 'Index (Driving Mode)', 
+        type: 'polygon', 
+        fillColor: '#88c999',
+        strokeColor: '#111',
+    },
+    'Drive_Service': { 
+        name: 'Driving Service Area', 
+        type: 'polygon', 
+        fillColor: '#999999',   
+        strokeColor: '#111',
+        defaultVisible: false  // Add this property to control default visibility
+    }
+};
 
-  
-      // Layer configuration
-      const layerConfig = {
-          'hospital': { name: 'Hospitals', iconUrl: 'images/hospital.png', type: 'symbol' },
-          'clinic': { name: 'Clinics', type: 'circle', color: '#F88379'},
-          'bicycle': { name: 'Bike Spots', type: 'circle', color: '#3b82f6' },
-          'music': { name: 'Music Venues', iconUrl: 'images/hospital.png', type: 'symbol' },
-          'monument': { name: 'Monuments', type: 'circle', color: '#6366f1' }
-      };
-      
-      
-          map.on('load', () => {
-              // Load custom images for each marker type
-              // TO USE YOUR OWN IMAGES: Replace these URLs with your local image paths
-              const imageUrls = {
-          'hospital': 'images/hospital.png',
-          'clinic': 'images/hospital2.png',
-          'music': './images/music-icon.png'
-      };
-      
-              // Load all images
-              const imagePromises = Object.keys(imageUrls).map(iconType => {
-                  return new Promise((resolve) => {
-                      map.loadImage(imageUrls[iconType], (error, image) => {
-                          if (error) {
-                              console.error(`Failed to load ${iconType} image:`, error);
-                              resolve(null);
-                          } else {
-                              map.addImage(`${iconType}-icon`, image);
-                              resolve(iconType);
-                          }
-                      });
-                  });
-              });
-      
-              // Wait for all images to load, then add layers
-              Promise.all(imagePromises).then(() => {
-                  // Add data source
-                  map.addSource('places', {
-                      'type': 'geojson',
-                      'data': allPlaces
-                  });
-      
-                  // Create image-based layers for each icon type
-                  Object.keys(layerConfig).forEach(iconType => {
-          const config = layerConfig[iconType];
-          const layerId = `${iconType}-markers`;
-      
-          if (config.type === 'symbol') {
-              map.addLayer({
-                  'id': layerId,
-                  'type': 'symbol',
-                  'source': 'places',
-                  'filter': ['==', 'icon', iconType],
-                  'layout': {
-                      'icon-image': `${iconType}-icon`,
-                      'icon-size': [
-                          'interpolate',
-                          ['linear'],
-                          ['zoom'],
-                          10, 0.4,
-                          16, 0.8
-                      ],
-                      'icon-anchor': 'bottom',
-                      'icon-allow-overlap': true,
-                      'visibility': 'visible'
-                  }
-              });
-          } else if (config.type === 'circle') {
-              map.addLayer({
-                  'id': layerId,
-                  'type': 'circle',
-                  'source': 'places',
-                  'filter': ['==', 'icon', iconType],
-                  'paint': {
-                      'circle-radius': 5,
-                      'circle-color': config.color || '#FF0000',
-                      'circle-opacity': 0.8
-                  }
-              });
-          }
-      });
-      
-      
-                  setupLayerControls();
-                  setupPopupEvents();
-                  fitMapToBounds();
-              });
-      
-              function setupLayerControls() {
-      
-              }
-      
-              function setupPopupEvents() {
-                  // Add click events for popups (simplified for image-only markers)
-                  Object.keys(layerConfig).forEach(iconType => {
-                      const layerId = `${iconType}-markers`;
-                      
-                      map.on('click', layerId, (e) => {
-                          const coordinates = e.features[0].geometry.coordinates.slice();
-                          const { title, description } = e.features[0].properties;
-      
-                          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-                              coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-                          }
-      
-                          new mapboxgl.Popup()
-                              .setLngLat(coordinates)
-                              .setHTML(`
-                                  <div class="popup-title">${title}</div>
-                                  <div class="popup-description">${description}</div>
-                              `)
-                              .addTo(map);
-                      });
-      
-                      map.on('mouseenter', layerId, () => {
-                          map.getCanvas().style.cursor = 'pointer';
-                      });
-      
-                      map.on('mouseleave', layerId, () => {
-                          map.getCanvas().style.cursor = '';
-                      });
-                  });
-              }
-      
-              function fitMapToBounds() {
-                  // Fit map to show all features
-                  const bounds = new mapboxgl.LngLatBounds();
-                  allPlaces.features.forEach(feature => {
-                      bounds.extend(feature.geometry.coordinates);
-                  });
-                  
-                  map.fitBounds(bounds, {
-                      padding: { top: 50, bottom: 50, left: 250, right: 50 }
-                  });
-              }
-      
-              // Create layer toggle control
-              class LayerToggleControl {
-                  onAdd(map) {
-                      this._map = map;
-                      this._container = document.createElement('div');
-                      this._container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
-                      this._container.style.background = 'white';
-                      this._container.style.padding = '10px';
-                      this._container.style.minWidth = '180px';
-      
-                      // Create title
-                      const title = document.createElement('div');
-                      title.innerHTML = '<strong>Toggle Layers</strong>';
-                      title.style.marginBottom = '10px';
-                      title.style.fontSize = '15px';
-                      title.style.color = '#222';
-                      this._container.appendChild(title);
-      
-                      // Create toggle buttons for each layer
-                    Object.keys(layerConfig).forEach(iconType => {
-                    const button = document.createElement('button');
-                    button.className = 'layer-toggle-btn';
+// Function to load polygon GeoJSON
+async function loadPolygonData() {
+    try {
+        // Replace 'polygons.geojson' with your actual file name
+        const response = await fetch('Drive_Access.geojson');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const polygonData = await response.json();
+        return polygonData;
+    } catch (error) {
+        console.error('Error loading polygon data:', error);
+        return null;
+    }
+}
 
-                    button.innerHTML = ''; // Clear default
+// Load my second polygon GeoJSON (service area (Driving mode))
+async function loadDriveServiceData() {
+    try {
+        const response = await fetch('Drive_servicearea.geojson');
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        return await response.json();
+    } catch (error) {
+        console.error('Error loading Drive_Service polygon data:', error);
+        return null;
+    }
+}
 
-                    // Decide what to use: icon image OR color dot
-                    if (layerConfig[iconType].type === 'symbol' && layerConfig[iconType].iconUrl) {
-                        const iconImg = document.createElement('img');
-                        iconImg.src = layerConfig[iconType].iconUrl;
-                        iconImg.style.width = '17px';
-                        iconImg.style.height = '17px';
-                        iconImg.style.flexShrink = '0';
+map.on('load', async () => {
+    // Load custom images for each marker type
+    const imageUrls = {
+        'hospital': 'images/hospital.png',
+        'clinic': 'images/hospital2.png',
+        'music': './images/music-icon.png'
+    };
 
-                        button.appendChild(iconImg);
-                    } else if (layerConfig[iconType].type === 'circle') {
-                        const colorDot = document.createElement('span');
-                        colorDot.style.display = 'inline-block';
-                        colorDot.style.width = '12px';
-                        colorDot.style.height = '12px';
-                        colorDot.style.borderRadius = '50%';
-                        colorDot.style.backgroundColor = layerConfig[iconType].color || '#999';
-                        colorDot.style.flexShrink = '0';
+    // Load all images
+    const imagePromises = Object.keys(imageUrls).map(iconType => {
+        return new Promise((resolve) => {
+            map.loadImage(imageUrls[iconType], (error, image) => {
+                if (error) {
+                    console.error(`Failed to load ${iconType} image:`, error);
+                    resolve(null);
+                } else {
+                    map.addImage(`${iconType}-icon`, image);
+                    resolve(iconType);
+                }
+            });
+        });
+    });
 
-                        button.appendChild(colorDot);
+    // Load polygon data
+    const driveAccData = await loadPolygonData();
+    const driveServiceData = await loadDriveServiceData();
+
+    // Wait for all images to load, then add layers
+    Promise.all(imagePromises).then(() => {
+        // Add point data source
+        map.addSource('places', {
+            'type': 'geojson',
+            'data': allPlaces
+        });
+
+        // Add polygon data source if loaded successfully
+        if (driveAccData) {
+            map.addSource('drive-acc-polygon-areas', {
+                'type': 'geojson',
+                'data': driveAccData
+            });
+        }
+        if (driveAccData) {
+            const polygonConfig = layerConfig['Drive_Acc'];
+            
+            // polygon layer (fill colour)
+            map.addLayer({
+                'id': 'drive-acc-polygons-fill',
+                'type': 'fill',
+                'source': 'drive-acc-polygon-areas',
+                'paint': {
+                    'fill-color': [
+                        'interpolate',
+                        ['linear'],
+                        ['get', 'Ai'],
+                        0, '#762a83',
+                        0.000083, '#af8dc3',
+                        0.000602, '#e7d4e8',
+                        0.004616, '#d9f0d3',
+                        0.005803, '#7fbf7b',
+                        0.022, '#1b7837'
+                    ],
+                    //   polygon opacity
+                    'fill-opacity': 0.4
+                },
+                'layout': {
+                    'visibility': 'visible'
+                }
+            });
+        
+            // 1st polygon stroke
+            map.addLayer({
+                'id': 'drive-acc-polygons-stroke',
+                'type': 'line',
+                'source': 'drive-acc-polygon-areas',
+                'paint': {
+                    'line-color': '#111', 
+                    'line-width': 0.3,        
+                    'line-opacity': 0.2
+                },
+                'layout': {
+                    'visibility': 'visible'
+                }
+            });
+        }
+
+        // 2nd polygon (service area (driving)) setting - HIDDEN BY DEFAULT
+        if (driveServiceData) {
+            const serviceConfig = layerConfig['Drive_Service'];
+
+            map.addSource('drive-service-polygon-areas', {
+                'type': 'geojson',
+                'data': driveServiceData
+            });
+
+            map.addLayer({
+                'id': 'drive-service-polygons-fill',
+                'type': 'fill',
+                'source': 'drive-service-polygon-areas',
+                'paint': {
+                    'fill-color': serviceConfig.fillColor,
+                    'fill-opacity': 0.5
+                },
+                'layout': {
+                    'visibility': 'none'  // Changed from 'visible' to 'none'
+                }
+            });
+            // no stroke
+            // map.addLayer({
+            //     'id': 'drive-service-polygons-stroke',
+            //     'type': 'line',
+            //     'source': 'drive-service-polygon-areas',
+            //     'paint': {
+            //         'line-color': serviceConfig.strokeColor,
+            //         'line-width': 0,
+            //         'line-opacity': 0
+            //     },
+            //     'layout': {
+            //         'visibility': 'none'  // Also set to 'none' if you enable stroke
+            //     }
+            // });
+        }
+
+        // Create point layers
+        Object.keys(layerConfig).forEach(iconType => {
+            const config = layerConfig[iconType];
+            const layerId = `${iconType}-markers`;
+
+            if (config.type === 'symbol') {
+                map.addLayer({
+                    'id': layerId,
+                    'type': 'symbol',
+                    'source': 'places',
+                    'filter': ['==', 'icon', iconType],
+                    'layout': {
+                        'icon-image': `${iconType}-icon`,
+                        'icon-size': [
+                            'interpolate',
+                            ['linear'],
+                            ['zoom'],
+                            10, 0.4,
+                            16, 0.8
+                        ],
+                        'icon-anchor': 'bottom',
+                        'icon-allow-overlap': true,
+                        'visibility': 'visible'
+                    }
+                });
+            } else if (config.type === 'circle') {
+                map.addLayer({
+                    'id': layerId,
+                    'type': 'circle',
+                    'source': 'places',
+                    'filter': ['==', 'icon', iconType],
+                    'paint': {
+                        'circle-radius': 5,
+                        'circle-color': config.color || '#FF0000',
+                        'circle-opacity': 0.8
+                    }
+                });
+            }
+        });
+
+        // Add polygon layers if data exists
+        
+        setupLayerControls();
+        setupPopupEvents();
+        fitMapToBounds(polygonData);
+    });
+
+    function setupLayerControls() {
+        // This function is now handled by the LayerToggleControl class below
+    }
+
+    function setupPopupEvents() {
+        // Add click events for point markers
+        Object.keys(layerConfig).forEach(iconType => {
+            if (layerConfig[iconType].type !== 'polygon') {
+                const layerId = `${iconType}-markers`;
+                
+                map.on('click', layerId, (e) => {
+                    const coordinates = e.features[0].geometry.coordinates.slice();
+                    const { title, description } = e.features[0].properties;
+
+                    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
                     }
 
-                    // Add the name after icon or color dot
-                    button.appendChild(document.createTextNode(layerConfig[iconType].name));
+                    new mapboxgl.Popup()
+                        .setLngLat(coordinates)
+                        .setHTML(`
+                            <div class="popup-title">${title}</div>
+                            <div class="popup-description">${description}</div>
+                        `)
+                        .addTo(map);
+                });
 
-                    // ✅ Layout styling
-                    button.style.display = 'flex';
-                    button.style.alignItems = 'center';
-                    button.style.justifyContent = 'flex-start';
-                    button.style.gap = '10px';
+                map.on('mouseenter', layerId, () => {
+                    map.getCanvas().style.cursor = 'pointer';
+                });
 
-                    button.style.width = '100%';
-                    button.style.padding = '8px 12px';
-                    button.style.margin = '2px 0';
-                    button.style.border = '1px solid #ccc';
-                    button.style.borderRadius = '5px';
-                    button.style.background = '#f8f9fa';
-                    button.style.cursor = 'pointer';
-                    button.style.fontSize = '13px';
-                    button.style.textAlign = 'left';
-                    button.style.transition = 'all 0.2s';
+                map.on('mouseleave', layerId, () => {
+                    map.getCanvas().style.cursor = '';
+                });
+            }
+        });
 
-                    // Track toggle state
+        // Add click events for polygons
+        if (map.getSource('drive-acc-polygon-areas')) {
+            map.on('click', 'drive-acc-polygons-fill', (e) => {
+                const coordinates = e.lngLat;
+                const properties = e.features[0].properties;
+                
+                // Create popup content from polygon properties
+                let popupContent = '<div class="popup-title">Area Information</div>';
+                if (properties.name) {
+                    popupContent += `<div class="popup-description"><strong>Name:</strong> ${properties.name}</div>`;
+                }
+                if (properties.description) {
+                    popupContent += `<div class="popup-description">${properties.description}</div>`;
+                }
+                
+                // Add other properties if they exist
+                Object.keys(properties).forEach(key => {
+                    if (key !== 'name' && key !== 'description') {
+                        popupContent += `<div class="popup-description"><strong>${key}:</strong> ${properties[key]}</div>`;
+                    }
+                });
+
+                new mapboxgl.Popup()
+                    .setLngLat(coordinates)
+                    .setHTML(popupContent)
+                    .addTo(map);
+            });
+
+            map.on('mouseenter', 'drive-acc-polygons-fill', () => {
+                map.getCanvas().style.cursor = 'pointer';
+            });
+
+            map.on('mouseleave', 'drive-acc-polygons-fill', () => {
+                map.getCanvas().style.cursor = '';
+            });
+        }
+    }
+
+    function fitMapToBounds(polygonData) {
+        // Fit map to show all features
+        const bounds = new mapboxgl.LngLatBounds();
+        
+        // Add point features to bounds
+        allPlaces.features.forEach(feature => {
+            bounds.extend(feature.geometry.coordinates);
+        });
+
+        // Add polygon features to bounds
+        if (polygonData && polygonData.features) {
+            polygonData.features.forEach(feature => {
+                if (feature.geometry.type === 'Polygon') {
+                    feature.geometry.coordinates[0].forEach(coord => {
+                        bounds.extend(coord);
+                    });
+                } else if (feature.geometry.type === 'MultiPolygon') {
+                    feature.geometry.coordinates.forEach(polygon => {
+                        polygon[0].forEach(coord => {
+                            bounds.extend(coord);
+                        });
+                    });
+                }
+            });
+        }
+        
+        map.fitBounds(bounds, {
+            padding: { top: 50, bottom: 50, left: 250, right: 50 }
+        });
+    }
+
+    // Enhanced Layer Toggle Control with polygon support
+    class LayerToggleControl {
+        onAdd(map) {
+            this._map = map;
+            this._container = document.createElement('div');
+            this._container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
+            this._container.style.background = 'white';
+            this._container.style.padding = '10px';
+            this._container.style.minWidth = '180px';
+
+            // Create title
+            const title = document.createElement('div');
+            title.innerHTML = '<strong>Toggle Layers</strong>';
+            title.style.marginBottom = '10px';
+            title.style.fontSize = '15px';
+            title.style.color = '#222';
+            this._container.appendChild(title);
+
+            // Create toggle buttons for each layer
+            Object.keys(layerConfig).forEach(iconType => {
+                const button = document.createElement('button');
+                button.className = 'layer-toggle-btn';
+                button.innerHTML = '';
+
+                // Handle different layer types
+                if (layerConfig[iconType].type === 'symbol' && layerConfig[iconType].iconUrl) {
+                    const iconImg = document.createElement('img');
+                    iconImg.src = layerConfig[iconType].iconUrl;
+                    iconImg.style.width = '17px';
+                    iconImg.style.height = '17px';
+                    iconImg.style.flexShrink = '0';
+                    button.appendChild(iconImg);
+                } else if (layerConfig[iconType].type === 'circle') {
+                    const colorDot = document.createElement('span');
+                    colorDot.style.display = 'inline-block';
+                    colorDot.style.width = '12px';
+                    colorDot.style.height = '12px';
+                    colorDot.style.borderRadius = '50%';
+                    colorDot.style.backgroundColor = layerConfig[iconType].color || '#999';
+                    colorDot.style.flexShrink = '0';
+                    button.appendChild(colorDot);
+                } else if (layerConfig[iconType].type === 'polygon') {
+                    // Create polygon preview
+                    const polygonPreview = document.createElement('span');
+                    polygonPreview.style.display = 'inline-block';
+                    polygonPreview.style.width = '16px';
+                    polygonPreview.style.height = '12px';
+                    polygonPreview.style.backgroundColor = layerConfig[iconType].fillColor;
+                    polygonPreview.style.border = `2px solid ${layerConfig[iconType].strokeColor}`;
+                    polygonPreview.style.borderRadius = '2px';
+                    polygonPreview.style.flexShrink = '0';
+                    button.appendChild(polygonPreview);
+                }
+
+                // Add the name after icon/color dot/polygon preview
+                button.appendChild(document.createTextNode(layerConfig[iconType].name));
+
+                // Layout styling
+                button.style.display = 'flex';
+                button.style.alignItems = 'center';
+                button.style.justifyContent = 'flex-start';
+                button.style.gap = '10px';
+                button.style.width = '100%';
+                button.style.padding = '8px 12px';
+                button.style.margin = '2px 0';
+                button.style.border = '1px solid #ccc';
+                button.style.borderRadius = '5px';
+                button.style.background = '#f8f9fa';
+                button.style.cursor = 'pointer';
+                button.style.fontSize = '13px';
+                button.style.textAlign = 'left';
+                button.style.transition = 'all 0.2s';
+
+                // Track toggle state - Set Drive_Service as inactive by default
+                if (layerConfig[iconType].defaultVisible === false) {
+                    button.isActive = false;
+                    button.style.background = '#e9ecef';
+                    button.style.opacity = '0.35';
+                } else {
                     button.isActive = true;
+                }
 
-                    button.addEventListener('click', () => {
+                button.addEventListener('click', () => {
+                    if (iconType === 'Drive_Acc') {
+                        // Handle polygon layers (both fill and stroke)
+                        const fillLayer = 'drive-acc-polygons-fill';
+                        const strokeLayer = 'drive-acc-polygons-stroke';
+                        
+                        if (button.isActive) {
+                            map.setLayoutProperty(fillLayer, 'visibility', 'none');
+                            map.setLayoutProperty(strokeLayer, 'visibility', 'none');
+                            button.style.background = '#e9ecef';
+                            button.style.opacity = '0.35';
+                            button.isActive = false;
+                        } else {
+                            map.setLayoutProperty(fillLayer, 'visibility', 'visible');
+                            map.setLayoutProperty(strokeLayer, 'visibility', 'visible');
+                            button.style.background = '#f8f9fa';
+                            button.style.opacity = '1';
+                            button.isActive = true;
+                        }
+                    } else if (iconType === 'Drive_Service') {
+                        const fillLayer = 'drive-service-polygons-fill';
+                        const strokeLayer = 'drive-service-polygons-stroke';
+                    
+                        if (button.isActive) {
+                            map.setLayoutProperty(fillLayer, 'visibility', 'none');
+                            if (map.getLayer(strokeLayer)) {
+                                map.setLayoutProperty(strokeLayer, 'visibility', 'none');
+                            }
+                            button.style.background = '#e9ecef';
+                            button.style.opacity = '0.35';
+                            button.isActive = false;
+                        } else {
+                            map.setLayoutProperty(fillLayer, 'visibility', 'visible');
+                            if (map.getLayer(strokeLayer)) {
+                                map.setLayoutProperty(strokeLayer, 'visibility', 'visible');
+                            }
+                            button.style.background = '#f8f9fa';
+                            button.style.opacity = '1';
+                            button.isActive = true;
+                        }
+                    } else {
+                        // Handle point layers
                         const markerLayer = `${iconType}-markers`;
 
                         if (button.isActive) {
-                        map.setLayoutProperty(markerLayer, 'visibility', 'none');
-                        button.style.background = '#e9ecef';
-                        button.style.opacity = '0.35';
-                        button.isActive = false;
+                            map.setLayoutProperty(markerLayer, 'visibility', 'none');
+                            button.style.background = '#e9ecef';
+                            button.style.opacity = '0.35';
+                            button.isActive = false;
                         } else {
-                        map.setLayoutProperty(markerLayer, 'visibility', 'visible');
-                        button.style.background = '#f8f9fa';
-                        button.style.opacity = '1';
-                        button.isActive = true;
+                            map.setLayoutProperty(markerLayer, 'visibility', 'visible');
+                            button.style.background = '#f8f9fa';
+                            button.style.opacity = '1';
+                            button.isActive = true;
                         }
-                    });
+                    }
+                });
 
-                    // Hover effects
-                    button.addEventListener('mouseenter', () => {
-                        if (button.isActive) {
+                // Hover effects
+                button.addEventListener('mouseenter', () => {
+                    if (button.isActive) {
                         button.style.background = '#50c8784d';
-                        }
-                    });
+                    }
+                });
 
-                    button.addEventListener('mouseleave', () => {
-                        if (button.isActive) {
+                button.addEventListener('mouseleave', () => {
+                    if (button.isActive) {
                         button.style.background = '#f8f9fa';
-                        }
-                    });
+                    }
+                });
 
-                    this._container.appendChild(button);
-                    });
-      
-                      return this._container;
-                  }
-      
-                  onRemove() {
-                      this._container.parentNode.removeChild(this._container);
-                      this._map = undefined;
-                  }
-              }
-      
-              // Add the layer toggle control to map
-              map.addControl(new LayerToggleControl(), 'top-left');
-              });
+                this._container.appendChild(button);
+            });
+
+            return this._container;
+        }
+
+        onRemove() {
+            this._container.parentNode.removeChild(this._container);
+            this._map = undefined;
+        }
+    }
+
+    // Add the layer toggle control to map
+    map.addControl(new LayerToggleControl(), 'top-left');
+});
