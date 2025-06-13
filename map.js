@@ -705,36 +705,105 @@ map.on('load', async () => {
         });
     }
 
-    // Enhanced Layer Toggle Control with polygon support
+    // Compact Mobile-Friendly Layer Toggle Control
     class LayerToggleControl {
+        constructor() {
+            this.isExpanded = false;
+        }
+
         onAdd(map) {
             this._map = map;
             this._container = document.createElement('div');
             this._container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
-            this._container.style.background = 'white';
-            this._container.style.padding = '10px';
-            this._container.style.minWidth = '180px';
+            
+            // Check if mobile device
+            const isMobile = window.innerWidth <= 768;
+            
+            // Container styling
+            this._container.style.background = 'rgba(255, 255, 255, 0.95)';
+            this._container.style.backdropFilter = 'blur(10px)';
+            this._container.style.borderRadius = '8px';
+            this._container.style.boxShadow = '0 2px 8px rgba(0,0,0,0.15)';
+            this._container.style.border = '1px solid rgba(0,0,0,0.1)';
+            this._container.style.overflow = 'hidden';
+            this._container.style.transition = 'all 0.3s ease';
+            
+            if (isMobile) {
+                this._container.style.maxWidth = '280px';
+                this._container.style.minWidth = '48px';
+                this._container.style.width = '48px';
+            } else {
+                this._container.style.minWidth = '200px';
+                this._container.style.width = '200px';
+            }
 
-            // Create title
-            const title = document.createElement('div');
-            title.innerHTML = '<strong>Toggle Layers</strong>';
-            title.style.marginBottom = '10px';
-            title.style.fontSize = '15px';
-            title.style.color = '#222';
-            this._container.appendChild(title);
+            // Create header with toggle button
+            const header = document.createElement('div');
+            header.style.display = 'flex';
+            header.style.alignItems = 'center';
+            header.style.justifyContent = 'space-between';
+            header.style.padding = '8px 12px';
+            header.style.background = 'rgba(248, 249, 250, 0.8)';
+            header.style.borderBottom = '1px solid rgba(0,0,0,0.1)';
+            header.style.cursor = 'pointer';
+            header.style.userSelect = 'none';
+
+            // Title (hidden on mobile when collapsed)
+            const title = document.createElement('span');
+            title.innerHTML = 'Layers';
+            title.style.fontSize = '14px';
+            title.style.fontWeight = '600';
+            title.style.color = '#333';
+            title.style.whiteSpace = 'nowrap';
+            
+            // Toggle icon
+            const toggleIcon = document.createElement('span');
+            toggleIcon.innerHTML = '⚙️';
+            toggleIcon.style.fontSize = '16px';
+            toggleIcon.style.transition = 'transform 0.3s ease';
+            
+            if (isMobile) {
+                header.appendChild(toggleIcon);
+                title.style.display = 'none';
+                this.titleElement = title;
+            } else {
+                header.appendChild(title);
+                header.appendChild(toggleIcon);
+                this.isExpanded = true;
+            }
+
+            this.toggleIcon = toggleIcon;
+            this._container.appendChild(header);
+
+            // Create collapsible content
+            const content = document.createElement('div');
+            content.style.transition = 'all 0.3s ease';
+            content.style.overflow = 'hidden';
+            
+            if (isMobile) {
+                content.style.maxHeight = '0';
+                content.style.opacity = '0';
+            } else {
+                content.style.maxHeight = '400px';
+                content.style.opacity = '1';
+            }
+            
+            this.contentElement = content;
 
             // Create toggle buttons for each layer
             Object.keys(layerConfig).forEach(iconType => {
                 const button = document.createElement('button');
                 button.className = 'layer-toggle-btn';
                 button.innerHTML = '';
+                button.style.all = 'unset';
+                button.style.boxSizing = 'border-box';
 
                 // Handle different layer types
                 if (layerConfig[iconType].type === 'symbol' && layerConfig[iconType].iconUrl) {
                     const iconImg = document.createElement('img');
                     iconImg.src = layerConfig[iconType].iconUrl;
-                    iconImg.style.width = '17px';
-                    iconImg.style.height = '17px';
+                    iconImg.style.width = '16px';
+                    iconImg.style.height = '16px';
                     iconImg.style.flexShrink = '0';
                     button.appendChild(iconImg);
                 } else if (layerConfig[iconType].type === 'circle') {
@@ -747,63 +816,66 @@ map.on('load', async () => {
                     colorDot.style.flexShrink = '0';
                     button.appendChild(colorDot);
                 } else if (layerConfig[iconType].type === 'polygon') {
-                    // Create polygon preview
                     const polygonPreview = document.createElement('span');
                     polygonPreview.style.display = 'inline-block';
-                    polygonPreview.style.width = '16px';
-                    polygonPreview.style.height = '12px';
+                    polygonPreview.style.width = '14px';
+                    polygonPreview.style.height = '10px';
                     polygonPreview.style.backgroundColor = layerConfig[iconType].fillColor;
-                    polygonPreview.style.border = `2px solid ${layerConfig[iconType].strokeColor}`;
+                    polygonPreview.style.border = `1px solid ${layerConfig[iconType].strokeColor}`;
                     polygonPreview.style.borderRadius = '2px';
                     polygonPreview.style.flexShrink = '0';
                     button.appendChild(polygonPreview);
                 }
 
-                // Add the name after icon/color dot/polygon preview
-                button.appendChild(document.createTextNode(layerConfig[iconType].name));
+                // Add layer name
+                const nameSpan = document.createElement('span');
+                nameSpan.textContent = layerConfig[iconType].name;
+                nameSpan.style.fontSize = '12px';
+                nameSpan.style.color = '#333';
+                nameSpan.style.fontWeight = '500';
+                button.appendChild(nameSpan);
 
-                // Layout styling
+                // Button styling
                 button.style.display = 'flex';
                 button.style.alignItems = 'center';
-                button.style.justifyContent = 'flex-start';
-                button.style.gap = '10px';
+                button.style.gap = '8px';
                 button.style.width = '100%';
                 button.style.padding = '8px 12px';
-                button.style.margin = '2px 0';
-                button.style.border = '1px solid #ccc';
-                button.style.borderRadius = '5px';
-                button.style.background = '#f8f9fa';
+                button.style.border = 'none';
+                button.style.background = 'transparent';
                 button.style.cursor = 'pointer';
-                button.style.fontSize = '13px';
+                button.style.transition = 'all 0.2s ease';
+                button.style.borderRadius = '0';
                 button.style.textAlign = 'left';
-                button.style.transition = 'all 0.2s';
+                button.style.minHeight = '36px';
 
-                // Track toggle state - Set Drive_Service as inactive by default
+                // Track toggle state
                 if (layerConfig[iconType].defaultVisible === false) {
                     button.isActive = false;
-                    button.style.background = '#e9ecef';
-                    button.style.opacity = '0.35';
+                    button.style.opacity = '0.5';
+                    nameSpan.style.textDecoration = 'line-through';
                 } else {
                     button.isActive = true;
+                    button.style.opacity = '1';
                 }
 
+                // Click handler
                 button.addEventListener('click', () => {
                     if (iconType === 'Drive_Acc') {
-                        // Handle polygon layers (both fill and stroke)
                         const fillLayer = 'drive-acc-polygons-fill';
                         const strokeLayer = 'drive-acc-polygons-stroke';
                         
                         if (button.isActive) {
                             map.setLayoutProperty(fillLayer, 'visibility', 'none');
                             map.setLayoutProperty(strokeLayer, 'visibility', 'none');
-                            button.style.background = '#e9ecef';
-                            button.style.opacity = '0.35';
+                            button.style.opacity = '0.5';
+                            nameSpan.style.textDecoration = 'line-through';
                             button.isActive = false;
                         } else {
                             map.setLayoutProperty(fillLayer, 'visibility', 'visible');
                             map.setLayoutProperty(strokeLayer, 'visibility', 'visible');
-                            button.style.background = '#f8f9fa';
                             button.style.opacity = '1';
+                            nameSpan.style.textDecoration = 'none';
                             button.isActive = true;
                         }
                     } else if (iconType === 'Drive_Service') {
@@ -815,31 +887,30 @@ map.on('load', async () => {
                             if (map.getLayer(strokeLayer)) {
                                 map.setLayoutProperty(strokeLayer, 'visibility', 'none');
                             }
-                            button.style.background = '#e9ecef';
-                            button.style.opacity = '0.35';
+                            button.style.opacity = '0.5';
+                            nameSpan.style.textDecoration = 'line-through';
                             button.isActive = false;
                         } else {
                             map.setLayoutProperty(fillLayer, 'visibility', 'visible');
                             if (map.getLayer(strokeLayer)) {
                                 map.setLayoutProperty(strokeLayer, 'visibility', 'visible');
                             }
-                            button.style.background = '#f8f9fa';
                             button.style.opacity = '1';
+                            nameSpan.style.textDecoration = 'none';
                             button.isActive = true;
                         }
                     } else {
-                        // Handle point layers
                         const markerLayer = `${iconType}-markers`;
 
                         if (button.isActive) {
                             map.setLayoutProperty(markerLayer, 'visibility', 'none');
-                            button.style.background = '#e9ecef';
-                            button.style.opacity = '0.35';
+                            button.style.opacity = '0.5';
+                            nameSpan.style.textDecoration = 'line-through';
                             button.isActive = false;
                         } else {
                             map.setLayoutProperty(markerLayer, 'visibility', 'visible');
-                            button.style.background = '#f8f9fa';
                             button.style.opacity = '1';
+                            nameSpan.style.textDecoration = 'none';
                             button.isActive = true;
                         }
                     }
@@ -847,21 +918,48 @@ map.on('load', async () => {
 
                 // Hover effects
                 button.addEventListener('mouseenter', () => {
-                    if (button.isActive) {
-                        button.style.background = '#50c8784d';
-                    }
+                    button.style.background = 'rgba(80, 200, 120, 0.1)';
                 });
 
                 button.addEventListener('mouseleave', () => {
-                    if (button.isActive) {
-                        button.style.background = '#f8f9fa';
-                    }
+                    button.style.background = 'transparent';
                 });
 
-                this._container.appendChild(button);
+                content.appendChild(button);
             });
 
+            this._container.appendChild(content);
+
+            // Header click handler for mobile
+            if (isMobile) {
+                header.addEventListener('click', () => {
+                    this.toggleExpanded();
+                });
+            }
+
             return this._container;
+        }
+
+        toggleExpanded() {
+            this.isExpanded = !this.isExpanded;
+            
+            if (this.isExpanded) {
+                this._container.style.width = '280px';
+                this.contentElement.style.maxHeight = '400px';
+                this.contentElement.style.opacity = '1';
+                this.toggleIcon.style.transform = 'rotate(90deg)';
+                if (this.titleElement) {
+                    this.titleElement.style.display = 'inline';
+                }
+            } else {
+                this._container.style.width = '48px';
+                this.contentElement.style.maxHeight = '0';
+                this.contentElement.style.opacity = '0';
+                this.toggleIcon.style.transform = 'rotate(0deg)';
+                if (this.titleElement) {
+                    this.titleElement.style.display = 'none';
+                }
+            }
         }
 
         onRemove() {
