@@ -729,12 +729,12 @@ map.on('load', async () => {
             this._container.style.transition = 'all 0.3s ease';
             
             if (isMobile) {
-                this._container.style.maxWidth = '280px';
+                this._container.style.maxWidth = '180px';
                 this._container.style.minWidth = '48px';
                 this._container.style.width = '48px';
             } else {
                 this._container.style.minWidth = '200px';
-                this._container.style.width = '200px';
+                this._container.style.width = '240px';
             }
 
             // Create header with toggle button
