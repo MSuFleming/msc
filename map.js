@@ -738,57 +738,80 @@ map.on('load', async () => {
             }
 
             // Create header with toggle button
-            const header = document.createElement('div');
-            header.style.display = 'flex';
-            header.style.alignItems = 'center';
-            header.style.justifyContent = 'space-between';
-            header.style.padding = '8px 12px';
-            header.style.background = 'rgba(248, 249, 250, 0.8)';
-            header.style.borderBottom = '1px solid rgba(0,0,0,0.1)';
-            header.style.cursor = 'pointer';
-            header.style.userSelect = 'none';
+const header = document.createElement('div');
+header.style.display = 'flex';
+header.style.alignItems = 'center';
+header.style.justifyContent = 'space-between';
+header.style.padding = '8px 12px';
+header.style.background = 'rgba(248, 249, 250, 0.8)';
+header.style.borderBottom = '1px solid rgba(0,0,0,0.1)';
+header.style.cursor = 'pointer';
+header.style.userSelect = 'none';
+header.style.minHeight = '32px'; // Ensures consistent height
 
-            // Title (hidden on mobile when collapsed)
-            const title = document.createElement('span');
-            title.innerHTML = 'Layers';
-            title.style.fontSize = '14px';
-            title.style.fontWeight = '600';
-            title.style.color = '#333';
-            title.style.whiteSpace = 'nowrap';
-            
-            // Toggle icon
-            const toggleIcon = document.createElement('span');
-            toggleIcon.innerHTML = '⚙️';
-            toggleIcon.style.fontSize = '16px';
-            toggleIcon.style.transition = 'transform 0.3s ease';
-            
-            if (isMobile) {
-                header.appendChild(toggleIcon);
-                title.style.display = 'none';
-                this.titleElement = title;
-            } else {
-                header.appendChild(title);
-                header.appendChild(toggleIcon);
-                this.isExpanded = true;
-            }
+// Title
+const title = document.createElement('span');
+title.innerHTML = 'Layers';
+title.style.fontSize = '14px';
+title.style.fontWeight = '600';
+title.style.color = '#333';
+title.style.whiteSpace = 'nowrap';
+title.style.flex = '1'; // Takes available space
 
-            this.toggleIcon = toggleIcon;
-            this._container.appendChild(header);
+// Toggle icon container for better alignment
+const iconContainer = document.createElement('span');
+iconContainer.style.display = 'flex';
+iconContainer.style.alignItems = 'center';
+iconContainer.style.justifyContent = 'center';
+iconContainer.style.width = '20px';
+iconContainer.style.height = '20px';
 
-            // Create collapsible content
-            const content = document.createElement('div');
-            content.style.transition = 'all 0.3s ease';
-            content.style.overflow = 'hidden';
-            
-            if (isMobile) {
-                content.style.maxHeight = '0';
-                content.style.opacity = '0';
-            } else {
-                content.style.maxHeight = '400px';
-                content.style.opacity = '1';
-            }
-            
-            this.contentElement = content;
+// Toggle icon - PNG image
+const toggleIcon = document.createElement('img');
+toggleIcon.src = 'images/cogwheel.png';
+toggleIcon.style.width = '16px';
+toggleIcon.style.height = '16px';
+toggleIcon.style.display = 'block';
+toggleIcon.style.transition = 'transform 1s ease';
+toggleIcon.alt = 'Toggle layers'; // Good practice for accessibility
+
+// Add icon to container
+iconContainer.appendChild(toggleIcon);
+
+if (isMobile) {
+    // Mobile: Only show icon, center it
+    header.style.justifyContent = 'center';
+    header.appendChild(iconContainer);
+    title.style.display = 'none';
+    this.titleElement = title;
+} else {
+    // Desktop: Show both title and icon
+    // header.style.display = 'none';
+    header.appendChild(title);
+    header.appendChild(iconContainer);
+    this.isExpanded = true;
+}
+
+this.toggleIcon = toggleIcon;
+this._container.appendChild(header);
+
+// Create collapsible content
+const content = document.createElement('div');
+content.style.transition = 'max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease';
+content.style.overflow = 'hidden';
+
+if (isMobile) {
+    content.style.maxHeight = '0';
+    content.style.opacity = '0';
+    content.style.paddingTop = '0';
+    content.style.paddingBottom = '0';
+} else {
+    content.style.maxHeight = '400px';
+    content.style.opacity = '1';
+    content.style.padding = '8px 0'; // Add some padding for desktop
+}
+
+this.contentElement = content;
 
             // Create toggle buttons for each layer
             Object.keys(layerConfig).forEach(iconType => {
