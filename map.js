@@ -342,34 +342,34 @@ const allPlaces = {
             }
         },
         // ------------------- below is ---------------
-        {
-            'type': 'Feature',
-            'properties': {
-                'icon': 'bicycle',
-                'title': 'Capital Crescent Trail',
-                'description': 'Popular biking and walking trail through the city.',
-                'color': '#27ae60'
-            },
-            'geometry': {
-                'type': 'Point',
-                'coordinates': [-77.052477, 38.943951]
-            }
-        },
+        // {
+        //     'type': 'Feature',
+        //     'properties': {
+        //         'icon': 'bicycle',
+        //         'title': 'Capital Crescent Trail',
+        //         'description': 'Popular biking and walking trail through the city.',
+        //         'color': '#27ae60'
+        //     },
+        //     'geometry': {
+        //         'type': 'Point',
+        //         'coordinates': [-77.052477, 38.943951]
+        //     }
+        // },
     ]
   };
   
   
   // Map initialization
-  mapboxgl.accessToken = 'token'; 
+  mapboxgl.accessToken = 'pk.eyJ1IjoienlwaGVyMTEwNCIsImEiOiJjbWF5OWg0bGUwNjFzMmxxemo4enM0NWIzIn0.OSmBViJ_-9Hu8EBdqkE6xA'; 
   const map = new mapboxgl.Map({
       container: 'map', // container ID
       style: 'mapbox://styles/mapbox/light-v11', // style URL
-      center: [-4.277578834832815,55.856466907382745,], // starting position
+      center: [-4.255578834832815,55.851466907382745], // starting position
       zoom: 10// starting zoom
   });
   
   // Add FullscreenControl
-  map.addControl(new mapboxgl.FullscreenControl());
+  map.addControl(new mapboxgl.FullscreenControl(),'bottom-left');
 
   // Add geocoder
   map.addControl(
@@ -398,10 +398,23 @@ const allPlaces = {
         fillColor: '#999999',   
         strokeColor: '#111',
         defaultVisible: false  // Add this property to control default visibility
+    },
+    'Walk_Acc': { 
+        name: 'Index (Walking Mode)', 
+        type: 'polygon', 
+        fillColor: '#88c999',
+        strokeColor: '#111',
+    },
+    'Walk_Service': { 
+        name: 'Walking Service Area', 
+        type: 'polygon', 
+        fillColor: '#999999',   
+        strokeColor: '#111',
+        defaultVisible: false  // Add this property to control default visibility
     }
 };
 
-// Function to load polygon GeoJSON
+// Function to load polygon GeoJSON (Drive Access)
 async function loadPolygonData() {
     try {
         // Replace 'polygons.geojson' with your actual file name
@@ -429,6 +442,30 @@ async function loadDriveServiceData() {
     }
 }
 
+// Load walking access polygon GeoJSON
+async function loadWalkAccData() {
+    try {
+        const response = await fetch('Walk_Access.geojson');
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        return await response.json();
+    } catch (error) {
+        console.error('Error loading Walk_Acc polygon data:', error);
+        return null;
+    }
+}
+
+// Load walking service area polygon GeoJSON
+async function loadWalkServiceData() {
+    try {
+        const response = await fetch('Walk_servicearea.geojson');
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        return await response.json();
+    } catch (error) {
+        console.error('Error loading Walk_Service polygon data:', error);
+        return null;
+    }
+}
+
 map.on('load', async () => {
     // Load custom images for each marker type
     const imageUrls = {
@@ -452,9 +489,11 @@ map.on('load', async () => {
         });
     });
 
-    // Load polygon data
+    // Load all polygon data
     const driveAccData = await loadPolygonData();
     const driveServiceData = await loadDriveServiceData();
+    const walkAccData = await loadWalkAccData();
+    const walkServiceData = await loadWalkServiceData();
 
     // Wait for all images to load, then add layers
     Promise.all(imagePromises).then(() => {
@@ -464,14 +503,13 @@ map.on('load', async () => {
             'data': allPlaces
         });
 
-        // Add polygon data source if loaded successfully
+        // Add driving polygon data sources and layers
         if (driveAccData) {
             map.addSource('drive-acc-polygon-areas', {
                 'type': 'geojson',
                 'data': driveAccData
             });
-        }
-        if (driveAccData) {
+            
             const polygonConfig = layerConfig['Drive_Acc'];
             
             // polygon layer (fill colour)
@@ -484,12 +522,11 @@ map.on('load', async () => {
                         'interpolate',
                         ['linear'],
                         ['get', 'Ai'],
-                        0, '#762a83',
-                        0.000083, '#af8dc3',
-                        0.000602, '#e7d4e8',
-                        0.004616, '#d9f0d3',
-                        0.005803, '#7fbf7b',
-                        0.022, '#1b7837'
+                        0.000083, '#7b3294',
+                        0.000602, '#c2a5cf',
+                        0.004616, '#e7d4e8',
+                        0.005803, '#a6dba0',
+                        0.022, '#008837'
                     ],
                     //   polygon opacity
                     'fill-opacity': 0.4
@@ -536,20 +573,77 @@ map.on('load', async () => {
                     'visibility': 'none'  // Changed from 'visible' to 'none'
                 }
             });
-            // no stroke
-            // map.addLayer({
-            //     'id': 'drive-service-polygons-stroke',
-            //     'type': 'line',
-            //     'source': 'drive-service-polygon-areas',
-            //     'paint': {
-            //         'line-color': serviceConfig.strokeColor,
-            //         'line-width': 0,
-            //         'line-opacity': 0
-            //     },
-            //     'layout': {
-            //         'visibility': 'none'  // Also set to 'none' if you enable stroke
-            //     }
-            // });
+        }
+
+        // Add walking access polygon layers
+        if (walkAccData) {
+            map.addSource('walk-acc-polygon-areas', {
+                'type': 'geojson',
+                'data': walkAccData
+            });
+            
+            const walkConfig = layerConfig['Walk_Acc'];
+            
+            // Walking polygon layer (fill colour) - HIDDEN BY DEFAULT
+            map.addLayer({
+                'id': 'walk-acc-polygons-fill',
+                'type': 'fill',
+                'source': 'walk-acc-polygon-areas',
+                'paint': {
+                    'fill-color': [
+                        'interpolate',
+                        ['linear'],
+                        ['get', 'Walk_Ai'], 
+                        0, '#7b3294',
+                        0.000338, '#c2a5cf',
+                        0.000668, '#e7d4e8',
+                        0.005018, '#a6dba0',
+                        0.085, '#008837'
+                    ],
+                    'fill-opacity': 0.4
+                },
+                'layout': {
+                    'visibility': 'none'  // Hidden by default to avoid overlap with driving
+                }
+            });
+        
+            // Walking polygon stroke
+            map.addLayer({
+                'id': 'walk-acc-polygons-stroke',
+                'type': 'line',
+                'source': 'walk-acc-polygon-areas',
+                'paint': {
+                    'line-color': '#111', 
+                    'line-width': 0.3,        
+                    'line-opacity': 0.2
+                },
+                'layout': {
+                    'visibility': 'none'  // Hidden by default
+                }
+            });
+        }
+
+        // Add walking service area polygon layers - HIDDEN BY DEFAULT
+        if (walkServiceData) {
+            const walkServiceConfig = layerConfig['Walk_Service'];
+
+            map.addSource('walk-service-polygon-areas', {
+                'type': 'geojson',
+                'data': walkServiceData
+            });
+
+            map.addLayer({
+                'id': 'walk-service-polygons-fill',
+                'type': 'fill',
+                'source': 'walk-service-polygon-areas',
+                'paint': {
+                    'fill-color': walkServiceConfig.fillColor,
+                    'fill-opacity': 0.5
+                },
+                'layout': {
+                    'visibility': 'none'  // Hidden by default
+                }
+            });
         }
 
         // Create point layers
@@ -592,8 +686,6 @@ map.on('load', async () => {
             }
         });
 
-        // Add polygon layers if data exists
-        
         setupLayerControls();
         setupPopupEvents();
         fitMapToBounds(polygonData);
@@ -636,14 +728,14 @@ map.on('load', async () => {
             }
         });
 
-        // Add click events for polygons
+        // Add click events for driving polygons
         if (map.getSource('drive-acc-polygon-areas')) {
             map.on('click', 'drive-acc-polygons-fill', (e) => {
                 const coordinates = e.lngLat;
                 const properties = e.features[0].properties;
                 
                 // Create popup content from polygon properties
-                let popupContent = '<div class="popup-title">Area Information</div>';
+                let popupContent = '<div class="popup-title">Driving Access Area</div>';
                 if (properties.name) {
                     popupContent += `<div class="popup-description"><strong>Name:</strong> ${properties.name}</div>`;
                 }
@@ -669,6 +761,43 @@ map.on('load', async () => {
             });
 
             map.on('mouseleave', 'drive-acc-polygons-fill', () => {
+                map.getCanvas().style.cursor = '';
+            });
+        }
+
+        // Add click events for walking polygons
+        if (map.getSource('walk-acc-polygon-areas')) {
+            map.on('click', 'walk-acc-polygons-fill', (e) => {
+                const coordinates = e.lngLat;
+                const properties = e.features[0].properties;
+                
+                // Create popup content from polygon properties
+                let popupContent = '<div class="popup-title">Walking Access Area</div>';
+                if (properties.name) {
+                    popupContent += `<div class="popup-description"><strong>Name:</strong> ${properties.name}</div>`;
+                }
+                if (properties.description) {
+                    popupContent += `<div class="popup-description">${properties.description}</div>`;
+                }
+                
+                // Add other properties if they exist
+                Object.keys(properties).forEach(key => {
+                    if (key !== 'name' && key !== 'description') {
+                        popupContent += `<div class="popup-description"><strong>${key}:</strong> ${properties[key]}</div>`;
+                    }
+                });
+
+                new mapboxgl.Popup()
+                    .setLngLat(coordinates)
+                    .setHTML(popupContent)
+                    .addTo(map);
+            });
+
+            map.on('mouseenter', 'walk-acc-polygons-fill', () => {
+                map.getCanvas().style.cursor = 'pointer';
+            });
+
+            map.on('mouseleave', 'walk-acc-polygons-fill', () => {
                 map.getCanvas().style.cursor = '';
             });
         }
@@ -738,80 +867,60 @@ map.on('load', async () => {
             }
 
             // Create header with toggle button
-const header = document.createElement('div');
-header.style.display = 'flex';
-header.style.alignItems = 'center';
-header.style.justifyContent = 'space-between';
-header.style.padding = '8px 12px';
-header.style.background = 'rgba(248, 249, 250, 0.8)';
-header.style.borderBottom = '1px solid rgba(0,0,0,0.1)';
-header.style.cursor = 'pointer';
-header.style.userSelect = 'none';
-header.style.minHeight = '32px'; // Ensures consistent height
+            const header = document.createElement('div');
+            header.style.display = 'flex';
+            header.style.alignItems = 'center';
+            header.style.justifyContent = 'space-between';
+            header.style.padding = '8px 16px';
+            header.style.background = 'rgba(248, 249, 250, 0.8)';
+            header.style.borderBottom = '1px solid rgba(0,0,0,0.1)';
+            header.style.cursor = 'pointer';
+            header.style.userSelect = 'none';
 
-// Title
-const title = document.createElement('span');
-title.innerHTML = 'Layers';
-title.style.fontSize = '14px';
-title.style.fontWeight = '600';
-title.style.color = '#333';
-title.style.whiteSpace = 'nowrap';
-title.style.flex = '1'; // Takes available space
+            // Title (hidden on mobile when collapsed)
+            const title = document.createElement('span');
+            title.innerHTML = 'Layers';
+            title.style.fontSize = '14px';
+            title.style.fontWeight = '600';
+            title.style.color = '#333';
+            title.style.whiteSpace = 'nowrap';
+            
+            const toggleIcon = document.createElement('span');
+            const cogImage = document.createElement('img');
+            cogImage.src = 'images/cogwheel.png';
+            cogImage.style.width = '16px';
+            cogImage.style.height = '16px';
+            cogImage.style.display = 'block';
+            toggleIcon.appendChild(cogImage);
+            toggleIcon.style.fontSize = '16px';
+            
+            if (isMobile) {
+                header.appendChild(toggleIcon);
+                title.style.display = 'none';
+                this.titleElement = title;
+            } else {
+                header.appendChild(title);
+                header.appendChild(toggleIcon);
+                this.isExpanded = true;
+            }
+            
+            this.toggleIcon = toggleIcon;
+            this._container.appendChild(header);
 
-// Toggle icon container for better alignment
-const iconContainer = document.createElement('span');
-iconContainer.style.display = 'flex';
-iconContainer.style.alignItems = 'center';
-iconContainer.style.justifyContent = 'center';
-iconContainer.style.width = '20px';
-iconContainer.style.height = '20px';
-
-// Toggle icon - PNG image
-const toggleIcon = document.createElement('img');
-toggleIcon.src = 'images/cogwheel.png';
-toggleIcon.style.width = '16px';
-toggleIcon.style.height = '16px';
-toggleIcon.style.display = 'block';
-toggleIcon.style.transition = 'transform 1s ease';
-toggleIcon.alt = 'Toggle layers'; // Good practice for accessibility
-
-// Add icon to container
-iconContainer.appendChild(toggleIcon);
-
-if (isMobile) {
-    // Mobile: Only show icon, center it
-    header.style.justifyContent = 'center';
-    header.appendChild(iconContainer);
-    title.style.display = 'none';
-    this.titleElement = title;
-} else {
-    // Desktop: Show both title and icon
-    // header.style.display = 'none';
-    header.appendChild(title);
-    header.appendChild(iconContainer);
-    this.isExpanded = true;
-}
-
-this.toggleIcon = toggleIcon;
-this._container.appendChild(header);
-
-// Create collapsible content
-const content = document.createElement('div');
-content.style.transition = 'max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease';
-content.style.overflow = 'hidden';
-
-if (isMobile) {
-    content.style.maxHeight = '0';
-    content.style.opacity = '0';
-    content.style.paddingTop = '0';
-    content.style.paddingBottom = '0';
-} else {
-    content.style.maxHeight = '400px';
-    content.style.opacity = '1';
-    content.style.padding = '8px 0'; // Add some padding for desktop
-}
-
-this.contentElement = content;
+            // Create collapsible content
+            const content = document.createElement('div');
+            content.style.transition = 'all 0.3s ease';
+            content.style.overflow = 'hidden';
+            
+            if (isMobile) {
+                content.style.maxHeight = '0';
+                content.style.opacity = '0';
+            } else {
+                content.style.maxHeight = '400px';
+                content.style.opacity = '1';
+            }
+            
+            this.contentElement = content;
 
             // Create toggle buttons for each layer
             Object.keys(layerConfig).forEach(iconType => {
@@ -845,7 +954,7 @@ this.contentElement = content;
                     polygonPreview.style.height = '10px';
                     polygonPreview.style.backgroundColor = layerConfig[iconType].fillColor;
                     polygonPreview.style.border = `1px solid ${layerConfig[iconType].strokeColor}`;
-                    polygonPreview.style.borderRadius = '2px';
+                    polygonPreview.style.borderRadius = '3px';
                     polygonPreview.style.flexShrink = '0';
                     button.appendChild(polygonPreview);
                 }
@@ -872,8 +981,8 @@ this.contentElement = content;
                 button.style.textAlign = 'left';
                 button.style.minHeight = '36px';
 
-                // Track toggle state
-                if (layerConfig[iconType].defaultVisible === false) {
+                // Track toggle state - set initial visibility
+                if (layerConfig[iconType].defaultVisible === false || iconType === 'Walk_Acc' || iconType === 'Walk_Service') {
                     button.isActive = false;
                     button.style.opacity = '0.5';
                     nameSpan.style.textDecoration = 'line-through';
@@ -904,6 +1013,44 @@ this.contentElement = content;
                     } else if (iconType === 'Drive_Service') {
                         const fillLayer = 'drive-service-polygons-fill';
                         const strokeLayer = 'drive-service-polygons-stroke';
+                    
+                        if (button.isActive) {
+                            map.setLayoutProperty(fillLayer, 'visibility', 'none');
+                            if (map.getLayer(strokeLayer)) {
+                                map.setLayoutProperty(strokeLayer, 'visibility', 'none');
+                            }
+                            button.style.opacity = '0.5';
+                            nameSpan.style.textDecoration = 'line-through';
+                            button.isActive = false;
+                        } else {
+                            map.setLayoutProperty(fillLayer, 'visibility', 'visible');
+                            if (map.getLayer(strokeLayer)) {
+                                map.setLayoutProperty(strokeLayer, 'visibility', 'visible');
+                            }
+                            button.style.opacity = '1';
+                            nameSpan.style.textDecoration = 'none';
+                            button.isActive = true;
+                        }
+                    } else if (iconType === 'Walk_Acc') {
+                        const fillLayer = 'walk-acc-polygons-fill';
+                        const strokeLayer = 'walk-acc-polygons-stroke';
+                        
+                        if (button.isActive) {
+                            map.setLayoutProperty(fillLayer, 'visibility', 'none');
+                            map.setLayoutProperty(strokeLayer, 'visibility', 'none');
+                            button.style.opacity = '0.5';
+                            nameSpan.style.textDecoration = 'line-through';
+                            button.isActive = false;
+                        } else {
+                            map.setLayoutProperty(fillLayer, 'visibility', 'visible');
+                            map.setLayoutProperty(strokeLayer, 'visibility', 'visible');
+                            button.style.opacity = '1';
+                            nameSpan.style.textDecoration = 'none';
+                            button.isActive = true;
+                        }
+                    } else if (iconType === 'Walk_Service') {
+                        const fillLayer = 'walk-service-polygons-fill';
+                        const strokeLayer = 'walk-service-polygons-stroke';
                     
                         if (button.isActive) {
                             map.setLayoutProperty(fillLayer, 'visibility', 'none');
@@ -990,7 +1137,113 @@ this.contentElement = content;
             this._map = undefined;
         }
     }
+// Custom Legend Control for your Mapbox map
+class MapLegendControl {
+    onAdd(map) {
+        this._map = map;
+        this._container = document.createElement('div');
+        this._container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group legend-control';
 
-    // Add the layer toggle control to map
+        // Hide on smaller screens
+        if (window.innerWidth <= 1024) {
+            this._container.style.display = 'none';
+        }
+
+        // Header
+        const header = document.createElement('div');
+        header.style.display = 'flex';
+        header.style.justifyContent = 'space-between';
+        header.style.alignItems = 'center';
+        header.style.padding = '8px 11px';
+        header.style.background = '#f8f9fa';
+
+        // Title
+        const title = document.createElement('span');
+        title.textContent = 'Access Index (Quantile)';
+        title.style.fontSize = '14px';
+        title.style.fontWeight = '600';
+        title.style.color = '#333';
+
+        header.appendChild(title);
+        this._container.appendChild(header);
+
+        // Content
+        const content = document.createElement('div');
+        content.style.padding = '10px 0 0 10px';
+        this.contentElement = content;
+
+        this.createLegendContent(content);
+        this._container.appendChild(content);
+        return this._container;
+    }
+
+    createLegendContent(container) {
+        container.innerHTML = '';
+
+        const drivingSection = this.createLegendSection('30mins Driving Mode', [
+            { color: '#7b3294', label: '0-0.000083' },
+            { color: '#c2a5cf', label: '0.000084-0.000602' },
+            { color: '#e7d4e8', label: '0.000603-0.004616' },
+            { color: '#a6dba0', label: '0.004617-0.005803' },
+            { color: '#008837', label: '0.005804-0.022' }
+        ]);
+        container.appendChild(drivingSection);
+
+        const walkingSection = this.createLegendSection('20mins Walking Mode', [
+            { color: '#7b3294', label: '0' },
+            { color: '#c2a5cf', label: '0.000001-0.000338' },
+            { color: '#e7d4e8', label: '0.000339-0.000668' },
+            { color: '#a6dba0', label: '0.000669-0.005018' },
+            { color: '#008837', label: '0.005019-0.085' }
+        ]);
+        container.appendChild(walkingSection);
+    }
+
+    createLegendSection(title, items) {
+        const section = document.createElement('div');
+        section.style.marginBottom = '12px';
+
+        const sectionTitle = document.createElement('div');
+        sectionTitle.textContent = title;
+        sectionTitle.style.fontSize = '13px';
+        sectionTitle.style.color = '#333';
+        sectionTitle.style.fontWeight = '600';
+        sectionTitle.style.marginBottom = '6px';
+        section.appendChild(sectionTitle);
+
+        items.forEach(item => {
+            const legendItem = document.createElement('div');
+            legendItem.style.display = 'flex';
+            legendItem.style.alignItems = 'center';
+            legendItem.style.marginBottom = '4px';
+
+            const symbol = document.createElement('div');
+            symbol.style.width = '14px';
+            symbol.style.height = '10px';
+            symbol.style.backgroundColor = item.color;
+            symbol.style.border = '1px solid #111';
+            symbol.style.marginRight = '8px';
+            symbol.style.borderRadius = '3px';
+
+            const label = document.createElement('span');
+            label.textContent = item.label;
+            label.style.fontSize = '12px';
+            label.style.color = '#333';
+
+            legendItem.appendChild(symbol);
+            legendItem.appendChild(label);
+            section.appendChild(legendItem);
+        });
+
+        return section;
+    }
+
+    onRemove() {
+        this._container.parentNode.removeChild(this._container);
+        this._map = undefined;
+    }
+}
+
+    map.addControl(new MapLegendControl(), 'top-right');
     map.addControl(new LayerToggleControl(), 'top-left');
 });
