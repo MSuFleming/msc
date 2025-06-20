@@ -363,7 +363,7 @@ const allPlaces = {
   mapboxgl.accessToken = 'token'; 
   const map = new mapboxgl.Map({
       container: 'map', // container ID
-      style: 'mapbox://styles/mapbox/light-v11', // style URL
+      style: 'mapbox://styles/zypher1104/cmc4xqeom020h01qw3day5uki', // style URL
       center: [-4.255578834832815,55.851466907382745], // starting position
       zoom: 10// starting zoom
   });
