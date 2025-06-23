@@ -166,8 +166,6 @@ header.scrolled .logo img {
             rgba(0, 0, 0, 0.9) 100%
     ),
             url('images/hero_2.png');
-  /* background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-              url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'); */
   background-size: cover;
   background-position: center;
   scroll-margin-top: 9rem;
@@ -205,9 +203,7 @@ header.scrolled .logo img {
   }
 }
 
-
 /* hero page button */
-
 .maplink_button {
     display: inline-block;
     padding: 18px 45px;
@@ -566,7 +562,7 @@ section {
 .text-step {
     position: relative;
     padding-left: 90px;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     min-height: 70px;
     transition: all 0.3s ease;
 }
@@ -675,7 +671,7 @@ section {
   font-size: 1rem;
   text-align: left;
   margin-top: 0.5rem;
-  margin-bottom: 4rem;
+  margin-bottom: 1.5rem;
   padding: 0 5px;
   }
   .content-block p{
@@ -882,18 +878,14 @@ radial-gradient(circle at 40% 40%, rgba(120, 200, 255, 0.1) 0%, transparent 50%)
 .footer_bottom {
   text-align: center;
   color: rgba(255, 255, 255, 0.8);
-  font-size: 14px;
+  font-size: 15px;
   padding-top: 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 
-
-
-
 /* mapbox section */
 /* Control panel styling */
-
 .mapboxgl-popup-content {
   padding: 15px;
   border-radius: 8px;
@@ -913,7 +905,6 @@ radial-gradient(circle at 40% 40%, rgba(120, 200, 255, 0.1) 0%, transparent 50%)
   font-size: 14px;
   line-height: 1.4;
 }
-
 
 .legend-control {
   background: rgba(255, 255, 255, 0.95);
