@@ -360,7 +360,7 @@ const allPlaces = {
   
   
   // Map initialization
-  mapboxgl.accessToken = 'token'; 
+  mapboxgl.accessToken = 'pk.eyJ1IjoienlwaGVyMTEwNCIsImEiOiJjbWF5OWg0bGUwNjFzMmxxemo4enM0NWIzIn0.OSmBViJ_-9Hu8EBdqkE6xA'; 
   const map = new mapboxgl.Map({
       container: 'map', // container ID
       style: 'mapbox://styles/zypher1104/cmc4xqeom020h01qw3day5uki', // style URL
