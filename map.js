@@ -341,20 +341,6 @@ const allPlaces = {
                 'coordinates': [-4.2340758659084372,55.886764255565993]
             }
         },
-        // ------------------- below is ---------------
-        // {
-        //     'type': 'Feature',
-        //     'properties': {
-        //         'icon': 'bicycle',
-        //         'title': 'Capital Crescent Trail',
-        //         'description': 'Popular biking and walking trail through the city.',
-        //         'color': '#27ae60'
-        //     },
-        //     'geometry': {
-        //         'type': 'Point',
-        //         'coordinates': [-77.052477, 38.943951]
-        //     }
-        // },
     ]
   };
   
@@ -382,22 +368,26 @@ const allPlaces = {
   
   // Layer configuration - including polygons
   const layerConfig = {
-    'hospital': { name: 'Hospitals', iconUrl: 'images/hospital.png', type: 'symbol' },
-    'clinic': { name: 'Clinics', type: 'circle', color: '#f76659'},
-    'bicycle': { name: 'Bike Spots', type: 'circle', color: '#3b82f6' },
-    // Add polygon layer configuration
+    'hospital': { name: 'Hospitals', 
+        iconUrl: 'images/hospital.png', 
+        ype: 'symbol'},
+    'clinic': { 
+        name: 'Clinics', 
+        type: 'circle', 
+        color: '#f76659'
+    },
     'Drive_Acc': { 
         name: 'Index (Driving Mode)', 
         type: 'polygon', 
         fillColor: '#88c999',
-        strokeColor: '#111',
+        strokeColor: '#111'
     },
     'Drive_Service': { 
         name: 'Driving Service Area', 
         type: 'polygon', 
         fillColor: '#999999',   
         strokeColor: '#111',
-        defaultVisible: false  // Add this property to control default visibility
+        defaultVisible: false  // layer is turned off when the web page first loads
     },
     'Walk_Acc': { 
         name: 'Index (Walking Mode)', 
@@ -410,8 +400,8 @@ const allPlaces = {
         type: 'polygon', 
         fillColor: '#999999',   
         strokeColor: '#111',
-        defaultVisible: false  // Add this property to control default visibility
-    }
+        defaultVisible: false  
+    },
 };
 
 // Function to load polygon GeoJSON (Drive Access)
