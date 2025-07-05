@@ -370,7 +370,7 @@ const allPlaces = {
   const layerConfig = {
     'hospital': { name: 'Hospitals', 
         iconUrl: 'images/hospital.png', 
-        ype: 'symbol'},
+        type: 'symbol'},
     'clinic': { 
         name: 'Clinics', 
         type: 'circle', 
