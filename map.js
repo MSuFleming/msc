@@ -670,7 +670,9 @@ map.on('load', async () => {
                     'paint': {
                         'circle-radius': 5,
                         'circle-color': config.color || '#FF0000',
-                        'circle-opacity': 0.8
+                        'circle-opacity': 0.8,
+                        'circle-stroke-color': '#000000', 
+                        'circle-stroke-width': 1         
                     }
                 });
             }
@@ -1170,7 +1172,7 @@ class MapLegendControl {
     createLegendContent(container) {
         container.innerHTML = '';
 
-        const drivingSection = this.createLegendSection('30mins Driving Mode', [
+        const drivingSection = this.createLegendSection('10mins Driving Mode', [
             { color: '#7b3294', label: '0-0.000083' },
             { color: '#c2a5cf', label: '0.000084-0.000602' },
             { color: '#e7d4e8', label: '0.000603-0.004616' },
