@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GIS Accessability</title>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.12.0/mapbox-gl.css" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.12.0/mapbox-gl.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- font awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+</head>
+<body>
+  
+<header id="header">
+  <div class="logo">
+    <img src="images/glasgow_logo.svg" alt="My Site Logo" id="logo-img" />
+  </div>
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+    <nav class="nav-links" id="navLinks">
+      <a href="#homepage" onclick="closeMenu()">Home</a>
+      <a href="#aboutpage" onclick="closeMenu()">About</a>
+      <a href="#mappage" onclick="closeMenu()">Map</a>
+      <a href="#methodpage" onclick="closeMenu()">Methodology</a>
+    </nav>
+  </header>
+
+  <div class="hero" id="homepage">
+    <h1 id="title">Healthcare Accessibility in Glasgow</h1>
+    <p id="subtitle">Evaluating Spatial Accessibility to Healthcare Facilities in Glasgow: A GIS-Based Analysis Using the Two-Step Floating Catchment Area (2SFCA) Method</p>
+    <a href="#mappage" class="maplink_button" >Explore the Map</a>
+  </div>
+    <div class="arrow">
+      <span></span>
+    </div>
+
+
+    <section id="aboutpage">    
+        <div class="text_section">
+            <h2 class="section-title">About The Site</h2>
+            <div class="content-block">
+                <h3>MSc Project</h3>
+                <div class="content_paragraph">
+                    <p>This webpage is part of the deliverables for the MSc Project at the College of Science & Engineering, University of Glasgow.</p>
+                    <p>This is an application-oriented MSc project under Theme P: "Bringing the field to your desktop: Accessibility-focused spatial analysis and visualisation of GES field course locations and activities." The study area and research focus have been slightly modified based on personal interest, with changes approved after discussion with supervisors. The webpage and its web map component were developed with the assistance of <a href="https://www.w3schools.com/howto/howto_js_navbar_shrink_scroll.asp" class="otherwebpagelink" target="_blank">W3Schools</a> and <a href="https://docs.mapbox.com/mapbox-gl-js/example/" class="otherwebpagelink" target="_blank">Mapbox tutorial examples</a>. The code has been modified where necessary.</p>
+                    <div class="link-row">
+                        <a href="https://www.gla.ac.uk/coursecatalogue/course/?code=GEOG5131P" class="school_link" target="_blank"><!-- open in new page -->
+                            <i class="fa-solid fa-caret-right"></i> About MSc Project
+                        </a>
+                        <a href="https://www.gla.ac.uk/" class="school_link" target="_blank">
+                            <i class="fa-solid fa-caret-right"></i> About University of Glasgow
+                        </a>
+                        <a href="https://www.gla.ac.uk/postgraduate/taught/geospatialandmappingsciences/" class="school_link" target="_blank">
+                            <i class="fa-solid fa-caret-right"></i> About My Program
+                        </a>
+                    </div> 
+                </div>
+                <div class="image-container">
+                    <img src="https://cfmnsugzia.cloudimg.io/www.gla.ac.uk/media/Media_1141038_smxx.webp?width=1400&force_format=webp" alt="uofg">
+                    <p class="image-caption">Figure 1: University of Glasgow</p>
+                </div>
+
+                <h3>Research Context</h3>
+                <div class="content_paragraph">
+                    <p>As Beks et al. (2021) suggest, "Access to health care is a universal human right and a key indicator of health system performance." However, accessibility should not be evaluated solely based on Euclidean or network distance. It is also influenced by factors such as local population density and the capacity of healthcare facilities. To account for these complexities, this project adopts the Two-Step Floating Catchment Area (2SFCA) method rather than relying exclusively on service area analysis. As the largest city in Scotland, Glasgow features a complex and uneven population distribution, with varying levels of healthcare demand and infrastructure across its neighbourhoods. In such an urban context, spatial accessibility plays a critical role in shaping health outcomes and supporting equitable healthcare planning.</p>
+                </div>
+                <div class="image-container">
+                  <img src="images/Pop_den.png" alt="undecided">
+                  <p class="image-caption">Figure 2: Glasgow Population by Output Areas (OAs), 2022</p>
+                </div>
+            </div>
+        </div>
+</section>
+  
+<section id="mappage">
+  <h2 class="section-title">Interactive Accessability Map</h2>
+  
+  <div id="map"></div>
+</section>
+
+<section id="methodpage">
+<div class="text_section">
+  <h2 class="section-title">Research Methodology</h2>
+  
+  <div class="content-grid">
+    <div class="content-block">
+      <h3>Data Collection</h3>
+      <p>Data used in this project were fully collected online from a variety of sources including government mapping agency, government open portals, open geodatabase, etc. Below is the summary of the key data used in the project:</p>
+      <ul>
+        <li>Healthcare facilities</li>
+        <li>Population data</li>
+        <li>Road network</li>
+        <li>Neighbourhood Boundary</li>
+      </ul>
+    </div>
+    
+    <div class="content-block">
+      <h3>Software & Application</h3>
+      <p>A range of software applications was used during the development of this project:</p>
+      <ul>
+        <li>QGIS (for geocoding solely)</li>
+        <li>ESRI ArcGIS Pro</li>
+        <li>Visual Studio Code</li>
+        <li>Mapbox (for base map customization & interactive visualization)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="text-steps">
+    <h3>Key Analysis Steps</h3>
+    
+    <div class="text-step">
+      <div class="step-number">1</div>
+      <div class="step-content">
+        <h4>Data Preprocessing</h4>
+        <p>
+          Healthcare facility data used in this project were sourced from the NHS website as of June 2025. Hospital capacity information was extracted from a database containing 30,221 records using basic SQL queries (Fig.3). Due to the limitation of 1000 origins and 1,000 destinations in Arcgis Pro network analyst, neighbourhood blocks were merged based on the first part of the postcode combined with the first letter of the second part (Fig.4). All layers were then imported into GIS software and reprojected to the correct coordinate reference system.
+        </p>
+        <div class="image-container">
+          <div class="image_row">
+            <div class="image_wrapper">
+                <img src="images\hos_sql.png" alt="hospital beds extraction" class="step_image">
+              <div class= "image_container_caption"><p>Figure 3: Extracting Glasgow Hospitals Bed Numbers</p>
+              </div>
+            </div>
+
+            <div class="image_wrapper">
+                <img src="images\neigh_centroid.png" alt="glasgow neighbour reclassify" class="step_image">       
+              <div class= "image_container_caption"><p>Figure 4: Glasgow Neighbourhood Blocks Based on Postcode</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="text-step">
+      <div class="step-number">2</div>
+      <div class="step-content">
+        <h4>Network Analysis</h4>
+        <p>
+          Service areas were generated using ArcGIS Network Analyst based on two travel modes: 10 minutes for driving and 20 minutes for walking. output of the Origin Destination (OD) Cost Matrix Solver were used to identify which neighbourhood block centroids fell within each hospital's service area. 
+        </p>
+        <div class="image-container">
+          <div class="image_row">
+            <div class="image_wrapper">
+              <a href="images/Drive10.png" target="_blank" rel="noopener noreferrer">
+                <img src="images/Drive10.png" alt="driving service area" class="step_image">
+              </a>
+              <div class= "image_container_caption"><p>Figure 5: 10-Minute Driving Service Area</p>
+              </div>
+            </div>
+            <div class="image_wrapper">
+              <a href="images/drive_od.png" target="_blank" rel="noopener noreferrer">
+                <img src="images/drive_od.png" alt="centroids within driving service area" class="step_image">
+              </a>
+              <div class= "image_container_caption"><p>Figure 6: OD Cost Matrix Output (Driving Mode)</p>
+              </div>
+            </div>
+
+            <div class="image_wrapper">
+              <a href="images/walk20.png" target="_blank" rel="noopener noreferrer">
+                <img src="images/walk20.png" alt="walking service area" class="step_image">
+              </a>
+              <div class= "image_container_caption"><p>Figure 7: 20-Minute Walking Service Area</p>
+              </div>
+            </div>
+            <div class="image_wrapper">
+              <a href="images/walk_od.png" target="_blank" rel="noopener noreferrer">
+                <img src="images/walk_od.png" alt="centroids within walking service area" class="step_image">    
+              </a>   
+              <div class= "image_container_caption"><p>Figure 8: OD Cost Matrix Output (Walking Mode)</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="text-step">
+      <div class="step-number">3</div>
+      <div class="step-content">
+        <h4>2SFCA Calculation</h4>
+        <p>
+          The Two-Step Floating Catchment Area (2SFCA) method was used to assess spatial accessibility to healthcare facilities. In the first step, a supply-to-demand ratio was calculated for each facility by dividing its capacity by the total population within a defined catchment area (e.g., 10-minute drive or 20-minute walk). In the second step, these ratios were summed for each neighbourhood centroid based on the facilities accessible within its own catchment area. 
+        </p>
+        <div class="image-container">
+          <div class="image_row">
+            <div class="image_wrapper">
+                <img src="images\demand_ratio.png" alt="formula 1" class="step_image">
+              <div class= "image_container_caption"><p>Figure 9: Calculating Supply to Demand Ratio</p>
+              </div>
+            </div>
+
+            <div class="image_wrapper">
+                <img src="images\acc_level.png" alt="formula 2" class="step_image">       
+              <div class= "image_container_caption"><p>Figure 10: Calculating Accessibility Level at Each Demand Location</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-step">
+      <div class="step-number">4</div>
+      <div class="step-content">
+        <h4>Web Map Customization</h4>
+        <p>
+          To meet the cartographic requirements, a customized basemap was created by modifying the monochrome template provided by Mapbox. Labels, parks, and water bodies were added using light colours to enhance the map's informational content while maintaining a clean and consistent colour theme. Each layer and feature uses unique colors or icons, and legends along with a full-screen view function are provided to improve readability and enhance the overall user experience.
+        </p>
+
+        <div class="image-container">
+          <div class="image_row">
+            <div class="image_wrapper">
+                <img src="images\mapbox_cus.png" alt="Mapbox Basemap Customization" class="step_image">
+              <div class= "image_container_caption"><p>Figure 11: Mapbox Basemap Customization</p>
+              </div>
+            </div>
+            <div class="image_wrapper">
+              <img src="images\layers_colour.png" alt="Mapbox Layers cartography" class="step_image">       
+              <div class= "image_container_caption"><p>Figure 12: Cartographic Styling of Mapbox Layers</p>
+              </div>
+            </div>
+            <div class="image_wrapper">
+                <img src="images\legends.png" alt="Mapbox Legends" class="step_image">       
+              <div class= "image_container_caption"><p>Figure 13: Design of Legends in Mapbox</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    
+  </div>
+</div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+      <div class="footer_content">
+        
+          <div class="footer_section">
+              <h3><i class="fa-solid fa-circle-info" style="color: #B197FC;"></i>Acknowledgment</h3>
+              <ul>
+                  <p>I would like to thank everyone who supported me throughout the school year, especially my supervisors, professors, teaching assistants, and all my wonderful classmates who offered guidance on this project.
+                  </p>
+              </ul>
+          </div>
+
+          <div class="footer_section">
+              <h3> <i class="fa-solid fa-circle-user" style="color: #81C784;"></i> Author</h3>
+              <ul>
+                  <li>
+                    <a href="https://www.linkedin.com/in/mingxuan-s-080927245/" target="_blank" class="inline_icon">About Me
+                    <i class="fa-brands fa-linkedin fa-lg" ></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/MSuFleming" target="_blank" class="inline_icon">Project Code
+                    <i class="fa-brands fa-github fa-lg"></i>
+                    </a>
+                  </li>
+                  <li><a href="" target="_blank">Previous Works</a></li>
+              </ul>
+          </div>
+
+          <div class="footer_section">
+              <h3> <i class="fa-solid fa-map-location-dot" style="color: #74C0FC;"></i> Revelant Programs</h3>
+              <ul>
+                  <li><a href=https://www.gla.ac.uk/postgraduate/taught/landhydrographicsurveying/ target="_blank">Land & Hydrographic Surveying</a></li>
+                  <li><a href="https://www.gla.ac.uk/postgraduate/taught/geomaticsmanagement/" target="_blank">Geomatics & Management</a></li>
+                  <li><a href="https://www.gla.ac.uk/postgraduate/taught/computational-geoscience/#tab=why" target="_blank">Computational Geoscience</a></li>
+              </ul>
+          </div>
+
+          <div class="footer_section">
+              <h3><i class="fa-solid fa-graduation-cap" style="color: 		#ffcc66;"></i>Resources</h3>
+              <ul>
+                  <li><a href="https://www.esri.com/en-us/arcgis/products/arcgis-network-analyst/overview">ESRI Products</a></li>
+                  <li><a href="https://qgis.org/">QGIS</a></li>
+                  <li><a href="https://www.mapbox.com/mts">Mapbox Tiling Service</a></li>
+              </ul>
+          </div>
+          
+      </div>
+      <div class="footer_bottom">
+        <!-- https://www.w3schools.com/tags/tag_strong.asp -->
+          <p><strong>Student ID:</strong> 3065049 | 2024/2025 academic year</p>
+      </div>
+  </div>
+</footer>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <!-- for geocoder -->
+  <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.3/mapbox-gl-geocoder.min.js"></script>
+  <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.3/mapbox-gl-geocoder.css" type="text/css">
+
+<script src="main.js"></script>
+<script src="map.js"></script>
+</body>
+</html>
