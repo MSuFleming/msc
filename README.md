@@ -1,7 +1,6 @@
 # msc project website
 
-![typing](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExejllMm15dmF3OWZ3NHBkaXFuanBza3pxd2RpNzJ2cmpsd2s1aGtwbiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/bEs40jYsdQjmM/giphy.gif)
-
+![typing]([https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExejllMm15dmF3OWZ3NHBkaXFuanBza3pxd2RpNzJ2cmpsd2s1aGtwbiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/bEs40jYsdQjmM/giphy.gif](https://tenor.com/bFeh3.gif))
 
 [Quick Link: View the Webpage](https://msufleming.github.io/msc/index.html)
 
