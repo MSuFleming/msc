@@ -1,5 +1,9 @@
-# msc project preliminary website
-[Quick Link](https://msufleming.github.io/msc/index.html)
+# msc project website
+
+![typing](https://media4.giphy.com/media/bEs40jYsdQjmM/giphy.gif)
+
+[Quick Link: View the Webpage](https://msufleming.github.io/msc/index.html)
+
 
 ## planned schedule
 | First Day of Weeks |   Tasks   |       Notes      |
