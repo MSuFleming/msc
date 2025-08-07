@@ -869,6 +869,13 @@ radial-gradient(circle at 40% 40%, rgba(120, 200, 255, 0.1) 0%, transparent 50%)
   /* same as the hover colour for mapbox and w3schools above */
 }
 
+.my-icon {
+  width: 25px;
+  height: 25px;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
 .inline_icon{
   display: inline-flex;
   align-items: center;
