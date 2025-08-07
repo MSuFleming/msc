@@ -1,7 +1,5 @@
 # msc project website
 
-![typing](https://tenor.com/bcDaF.gif)
-
 [Quick Link: View the Webpage](https://msufleming.github.io/msc/index.html)
 
 
