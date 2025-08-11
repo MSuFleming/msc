@@ -2,7 +2,7 @@
 
 [Quick Link: View the Webpage](https://msufleming.github.io/msc/index.html)
 
-![](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeGk5bGE2dHZxZ2piYWh0N2RhdnE3dm9yMGNwY3hhcDUzcXgxOHFhZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/bEs40jYsdQjmM/giphy.gif)
+![](https://media.giphy.com/media/bEs40jYsdQjmM/giphy.gif)
 
 ## planned schedule
 | First Day of Weeks |   Tasks   |       Notes      |
