@@ -10,9 +10,6 @@
 
 [Quick Link: View the Webpage](https://msufleming.github.io/msc/index.html)
 
----
-
-![](https://c.tenor.com/qzY72HVqwpAAAAAd/tenor.gif)
 
 ---
 
@@ -32,3 +29,7 @@
 | Aug 11| validate HTML and CSS| done
 | Aug 18| clean the data and create a metadata readme file| (＠_＠;)
 | Aug 25|ready to go|🤞
+
+---
+
+![](https://c.tenor.com/qzY72HVqwpAAAAAd/tenor.gif)
