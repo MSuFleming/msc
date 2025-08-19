@@ -10,17 +10,16 @@
 ![](https://img.shields.io/badge/Microsoft_Access-A4373A?style=for-the-badge&logo=microsoft-access&logoColor=white)
 
 **Academic Year:** 2024/25  
-**University:** University of Glasgow  
-**College:** College of Science & Engineering  
+**University of Glasgow**  
+**College of Science & Engineering**  
 **Student ID:** _3065049_ 
 
 [Quick Link: View the Webpage](https://msufleming.github.io/msc/index.html)
 
 ---
 ## Disclaimer
-The project outputs, including the **report (submitted via Moodle)** and this **web GIS application**, are produced **solely for the purpose of completing the MSc dissertation**.  
-The web GIS serves as a **visualization component** and is **not guaranteed to provide fully accurate results**.  
-Users should interpret the data and results with caution.
+The project outputs, including the report (submitted via Moodle) and this web GIS application, are produced **solely for the purpose of completing the MSc dissertation**.  
+The web GIS is entirely a **student work** and serves as a visualization component of the project. It is **not guaranteed to provide fully accurate results**, and users should interpret the data with caution.
 
 ---
 
