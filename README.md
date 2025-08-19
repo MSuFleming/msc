@@ -25,9 +25,13 @@
 | July 21| report methods & result sections |done|
 | July 28| report intro, literature, discussion |done|
 | Aug 4| conclusion, report draft completed|formative feedback due at aug 8|
-| Aug 11|structure and academic style| （；´д｀）ゞ done
+| Aug 11|structure and academic style|  done
 | Aug 11| validate HTML and CSS| done
 | Aug 18| clean the data and create a metadata readme file| done
+| Aug 18|
+1. Remove unnecessary columns in ArcGIS and re-export the GeoJSON file
+2. Add the underserved neighbourhood layer
+3. Update the popup information| （；´д｀）ゞ done
 | Aug 25|ready to go|🤞
 
 ---
