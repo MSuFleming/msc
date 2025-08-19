@@ -347,11 +347,14 @@ const allPlaces = {
   
   // Map initialization
   mapboxgl.accessToken = 'pk.eyJ1IjoienlwaGVyMTEwNCIsImEiOiJjbWF5OWg0bGUwNjFzMmxxemo4enM0NWIzIn0.OSmBViJ_-9Hu8EBdqkE6xA'; 
+  const isMobile = window.innerWidth <= 768;
+  const defaultzoom = isMobile ? 9 : 10; 
+
   const map = new mapboxgl.Map({
       container: 'map', // container ID
       style: 'mapbox://styles/zypher1104/cmc4xqeom020h01qw3day5uki', // style URL
       center: [-4.255578834832815,55.851466907382745], // starting position
-      zoom: 10// starting zoom
+      zoom: defaultzoom// starting zoom
   });
   
   // Add FullscreenControl
@@ -399,6 +402,13 @@ const allPlaces = {
         name: 'Walking Service Area', 
         type: 'polygon', 
         fillColor: '#999999',   
+        strokeColor: '#111',
+        defaultVisible: false  
+    },
+    'Inaccess': { 
+        name: 'Underserved Area (Ai=0)', 
+        type: 'polygon', 
+        fillColor: '#E74C3C',   
         strokeColor: '#111',
         defaultVisible: false  
     },
@@ -456,6 +466,18 @@ async function loadWalkServiceData() {
     }
 }
 
+// Load neighbourhood with 0 accessibility index polygon 
+async function loadUnderservedData() {
+    try {
+        const response = await fetch('Inaccess.geojson');
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        return await response.json();
+    } catch (error) {
+        console.error('Error loading Inaccess polygon data:', error);
+        return null;
+    }
+}
+
 map.on('load', async () => {
     // Load custom images for each marker type
     const imageUrls = {
@@ -484,6 +506,7 @@ map.on('load', async () => {
     const driveServiceData = await loadDriveServiceData();
     const walkAccData = await loadWalkAccData();
     const walkServiceData = await loadWalkServiceData();
+    const UnderservedData = await loadUnderservedData();
 
     // Wait for all images to load, then add layers
     Promise.all(imagePromises).then(() => {
@@ -636,6 +659,50 @@ map.on('load', async () => {
             });
         }
 
+        if (UnderservedData) {
+            map.addSource('underserved-polygon-areas', {
+                'type': 'geojson',
+                'data': UnderservedData
+            });
+            
+            const walkConfig = layerConfig['Inaccess.geojson'];
+            
+            // underserved polygon layer (fill colour) - HIDDEN BY DEFAULT
+            map.addLayer({
+                'id': 'underserved-polygons-fill',
+                'type': 'fill',
+                'source': 'underserved-polygon-areas',
+                'paint': {
+                    'fill-color': [
+                        'interpolate',
+                        ['linear'],
+                        ['get', 'Inaccess'], 
+                        0, '#a6dba0',
+                        1, '#E74C3C'
+                    ],
+                    'fill-opacity': 0.4
+                },
+                'layout': {
+                    'visibility': 'none'  // Hidden by default to avoid overlap with driving
+                }
+            });
+        
+            // underserved polygon stroke
+            map.addLayer({
+                'id': 'underserved-polygons-stroke',
+                'type': 'line',
+                'source': 'underserved-polygon-areas',
+                'paint': {
+                    'line-color': '#111', 
+                    'line-width': 0.3,        
+                    'line-opacity': 0.2
+                },
+                'layout': {
+                    'visibility': 'none'  // Hidden by default
+                }
+            });
+        }
+
         // Create point layers
         Object.keys(layerConfig).forEach(iconType => {
             const config = layerConfig[iconType];
@@ -725,22 +792,19 @@ map.on('load', async () => {
             map.on('click', 'drive-acc-polygons-fill', (e) => {
                 const coordinates = e.lngLat;
                 const properties = e.features[0].properties;
-                
-                // Create popup content from polygon properties
+
+                // Create popup content showing only selected fields
                 let popupContent = '<div class="popup-title">Driving Access Area</div>';
-                if (properties.name) {
-                    popupContent += `<div class="popup-description"><strong>Name:</strong> ${properties.name}</div>`;
+
+                if (properties.Post_block !== undefined) {
+                    popupContent += `<div class="popup-description"><strong>Post Block:</strong> ${properties.Post_block}</div>`;
                 }
-                if (properties.description) {
-                    popupContent += `<div class="popup-description">${properties.description}</div>`;
+                if (properties.Shape_Area !== undefined) {
+                    popupContent += `<div class="popup-description"><strong>Shape Area:</strong> ${properties.Shape_Area}</div>`;
                 }
-                
-                // Add other properties if they exist
-                Object.keys(properties).forEach(key => {
-                    if (key !== 'name' && key !== 'description') {
-                        popupContent += `<div class="popup-description"><strong>${key}:</strong> ${properties[key]}</div>`;
-                    }
-                });
+                if (properties.Ai !== undefined) {
+                    popupContent += `<div class="popup-description"><strong>AI Value:</strong> ${properties.Ai}</div>`;
+                }
 
                 new mapboxgl.Popup()
                     .setLngLat(coordinates)
@@ -762,22 +826,19 @@ map.on('load', async () => {
             map.on('click', 'walk-acc-polygons-fill', (e) => {
                 const coordinates = e.lngLat;
                 const properties = e.features[0].properties;
-                
-                // Create popup content from polygon properties
+
+                // Create popup content showing only selected fields
                 let popupContent = '<div class="popup-title">Walking Access Area</div>';
-                if (properties.name) {
-                    popupContent += `<div class="popup-description"><strong>Name:</strong> ${properties.name}</div>`;
+
+                if (properties.Post_block !== undefined) {
+                    popupContent += `<div class="popup-description"><strong>Post Block:</strong> ${properties.Post_block}</div>`;
                 }
-                if (properties.description) {
-                    popupContent += `<div class="popup-description">${properties.description}</div>`;
+                if (properties.Shape_Area !== undefined) {
+                    popupContent += `<div class="popup-description"><strong>Shape Area:</strong> ${properties.Shape_Area}</div>`;
                 }
-                
-                // Add other properties if they exist
-                Object.keys(properties).forEach(key => {
-                    if (key !== 'name' && key !== 'description') {
-                        popupContent += `<div class="popup-description"><strong>${key}:</strong> ${properties[key]}</div>`;
-                    }
-                });
+                if (properties.Walk_Ai !== undefined) {
+                    popupContent += `<div class="popup-description"><strong>Walk AI Value:</strong> ${properties.Walk_Ai}</div>`;
+                }
 
                 new mapboxgl.Popup()
                     .setLngLat(coordinates)
@@ -793,6 +854,35 @@ map.on('load', async () => {
                 map.getCanvas().style.cursor = '';
             });
         }
+
+
+        // new here !!!!!!!!!!!!!!!!
+        if (map.getSource('underserved-polygon-areas')) {
+            map.on('click', 'underserved-polygons-fill', (e) => {
+                const coordinates = e.lngLat;
+                const properties = e.features[0].properties;
+        
+                // Create popup content showing only Post_block
+                let popupContent = '<div class="popup-title">Underserved Area</div>';
+                if (properties.Post_block !== undefined) {
+                    popupContent += `<div class="popup-description"><strong>Post Block:</strong> ${properties.Post_block}</div>`;
+                }
+        
+                new mapboxgl.Popup()
+                    .setLngLat(coordinates)
+                    .setHTML(popupContent)
+                    .addTo(map);
+            });
+        
+            map.on('mouseenter', 'underserved-polygons-fill', () => {
+                map.getCanvas().style.cursor = 'pointer';
+            });
+        
+            map.on('mouseleave', 'underserved-polygons-fill', () => {
+                map.getCanvas().style.cursor = '';
+            });
+        }
+        
     }
 
     function fitMapToBounds(polygonData) {
@@ -1040,6 +1130,27 @@ map.on('load', async () => {
                             nameSpan.style.textDecoration = 'none';
                             button.isActive = true;
                         }
+
+
+                        // here !!!!!!!!!!!!!!!!!!!!!!!
+                    } else if (iconType === 'Inaccess') {
+                        const fillLayer = 'underserved-polygons-fill';
+                        const strokeLayer = 'underserved-polygons-stroke';
+                        
+                        if (button.isActive) {
+                            map.setLayoutProperty(fillLayer, 'visibility', 'none');
+                            map.setLayoutProperty(strokeLayer, 'visibility', 'none');
+                            button.style.opacity = '0.5';
+                            nameSpan.style.textDecoration = 'line-through';
+                            button.isActive = false;
+                        } else {
+                            map.setLayoutProperty(fillLayer, 'visibility', 'visible');
+                            map.setLayoutProperty(strokeLayer, 'visibility', 'visible');
+                            button.style.opacity = '1';
+                            nameSpan.style.textDecoration = 'none';
+                            button.isActive = true;
+                        }
+
                     } else if (iconType === 'Walk_Service') {
                         const fillLayer = 'walk-service-polygons-fill';
                         const strokeLayer = 'walk-service-polygons-stroke';
