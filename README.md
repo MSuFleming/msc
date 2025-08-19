@@ -28,7 +28,7 @@
 | Aug 11|structure and academic style|  done
 | Aug 11| validate HTML and CSS| done
 | Aug 18| clean the data and create a metadata readme file| done
-| Aug 18|**1.** Remove unnecessary columns in ArcGIS and re-export the GeoJSON file  **2.** Add the underserved neighbourhood layer  **3.** Update the popup information  **4.** slightly reduce zoom level under mobile view| （；´д｀）ゞ done
+| 20 Aug, 2025|**1.** Remove unnecessary columns in ArcGIS and re-export the GeoJSON file  **2.** Add the underserved neighbourhood layer  **3.** Update the popup information  **4.** slightly reduce zoom level under mobile view| （；´д｀）ゞ done
 | Aug 25|ready to go|🤞
 
 ---
