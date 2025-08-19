@@ -165,7 +165,7 @@ header.scrolled .logo img {
             rgba(0, 0, 0, 0.4) 45%,
             rgba(0, 0, 0, 0.9) 100%
     ),
-            url('images/hero_2.png');
+            url('images/hero_1.png');
   background-size: cover;
   background-position: center;
   scroll-margin-top: 9rem;
