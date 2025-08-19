@@ -19,6 +19,7 @@
 ---
 ## Disclaimer
 The project outputs, including the report (submitted via Moodle) and this web GIS application, are produced **solely for the purpose of completing the MSc dissertation**.  
+
 The web GIS is entirely a **student work** and serves as a visualization component of the project. It is **not guaranteed to provide fully accurate results**, and users should interpret the data with caution.
 
 ---
