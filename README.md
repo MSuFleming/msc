@@ -24,7 +24,7 @@ The web GIS is entirely a **student work** and serves as a visualization compone
 
 ---
 
-## planned schedule
+## Planned Schedule
 | First Day of Weeks |   Tasks   |       Notes      |
 |--------------------|-----------|------------------|
 | June 9  | network analysis | done|
