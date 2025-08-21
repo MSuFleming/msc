@@ -348,7 +348,7 @@ const allPlaces = {
   // Map initialization
   mapboxgl.accessToken = 'pk.eyJ1IjoienlwaGVyMTEwNCIsImEiOiJjbWF5OWg0bGUwNjFzMmxxemo4enM0NWIzIn0.OSmBViJ_-9Hu8EBdqkE6xA'; 
   const isMobile = window.innerWidth <= 768;
-  const defaultzoom = isMobile ? 9 : 10; 
+  const defaultzoom = isMobile ? 8.5 : 10; 
 
   const map = new mapboxgl.Map({
       container: 'map', // container ID
