@@ -418,7 +418,7 @@ const allPlaces = {
 async function loadPolygonData() {
     try {
         // Replace 'polygons.geojson' with your actual file name
-        const response = await fetch('Drive_Access.geojson');
+        const response = await fetch('layers/Drive_Access.geojson');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -433,7 +433,7 @@ async function loadPolygonData() {
 // Load my second polygon GeoJSON (service area (Driving mode))
 async function loadDriveServiceData() {
     try {
-        const response = await fetch('Drive_servicearea.geojson');
+        const response = await fetch('layers/Drive_servicearea.geojson');
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         return await response.json();
     } catch (error) {
@@ -445,7 +445,7 @@ async function loadDriveServiceData() {
 // Load walking access polygon GeoJSON
 async function loadWalkAccData() {
     try {
-        const response = await fetch('Walk_Access.geojson');
+        const response = await fetch('layers/Walk_Access.geojson');
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         return await response.json();
     } catch (error) {
@@ -457,7 +457,7 @@ async function loadWalkAccData() {
 // Load walking service area polygon GeoJSON
 async function loadWalkServiceData() {
     try {
-        const response = await fetch('Walk_servicearea.geojson');
+        const response = await fetch('layers/Walk_servicearea.geojson');
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         return await response.json();
     } catch (error) {
@@ -469,7 +469,7 @@ async function loadWalkServiceData() {
 // Load neighbourhood with 0 accessibility index polygon 
 async function loadUnderservedData() {
     try {
-        const response = await fetch('Inaccess.geojson');
+        const response = await fetch('layers/Inaccess.geojson');
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         return await response.json();
     } catch (error) {
